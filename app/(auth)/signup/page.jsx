@@ -178,72 +178,6 @@ export default function SignUp() {
     "Mobile App Development (iOS/Android)",
   ];
 
-  const handlePrev = () => {
-    window.scrollTo(0, 0);
-
-    setStep(step - 1);
-  };
-  const handleNext = () => {
-    //scroll to top
-    window.scrollTo(0, 0);
-    setStep(step + 1);
-  };
-
-  const handleFinish = () => {
-    //log the form data, the form data is being stored in formData
-    console.log("formData,", formData);
-    /*e.g. formData = {
-      "name": "d",
-      "email": "asdfasdf@asdfad.adf",
-      "industries": [
-        "Agriculture & Environment",
-        "Arts & Handicraft"
-      ],
-      "passions": [
-        "Administrative",
-        "Agriculture & Environment"
-      ],
-      "jobTypes": [
-        "Administrative Assistant",
-        "Office Manager"
-      ],
-      "skills": [
-        "JavaScript"
-      ]
-    } */
-
-    //send the form data to the backend
-
-    // fetch("/api/user", {
-    //   method: "POST",
-    //   body: JSON.stringify(formData),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // })
-    //   .then((res) => {
-    //     //redirect to career compass
-    //      router.push("/career-compass");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  };
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    industries: [],
-    passions: [],
-    jobTypes: [],
-    skills: [],
-  });
-
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [id]: value }));
-  };
-
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredIndustries = industryCategories.filter((industry) =>
@@ -261,6 +195,15 @@ export default function SignUp() {
   const filteredSkills = skills.filter((skill) =>
     skill.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleFileChange = (e, field) => {
+    const file = e.target.files[0];
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: file,
+    }));
+  };
 
   const handleCheckboxChange = (value) => {
     if (step === 1) {
@@ -324,6 +267,82 @@ export default function SignUp() {
         }));
       }
     }
+  };
+
+  const handlePrev = () => {
+    window.scrollTo(0, 0);
+
+    setStep(step - 1);
+  };
+  const handleNext = () => {
+    //scroll to top
+    window.scrollTo(0, 0);
+    setStep(step + 1);
+  };
+
+  const handleFinish = () => {
+    //log the form data, the form data is being stored in formData
+    console.log("formData,", formData);
+    /*e.g. formData = {
+            "name": "shantanu sakpal",
+            "email": "shantanuesakpal1405@gmail.com",
+            "industries": [
+              "Agriculture & Environment",
+              "Tech & Software"
+            ],
+            "passions": [
+              "IT & Software",
+              "Agriculture & Environment",
+              "Healthcare"
+            ],
+            "jobTypes": [
+              "Medical Lab Technologist",
+              "Data Analyst"
+            ],
+            "skills": [
+              "JavaScript",
+              "Vue.js"
+            ],
+            "cirriculumPdf": {
+              File Object
+            },
+            "resumePdf": {
+              File Object
+            }
+          } */
+
+    //send the form data to the backend
+
+    // fetch("/api/user", {
+    //   method: "POST",
+    //   body: JSON.stringify(formData),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // })
+    //   .then((res) => {
+    //     //redirect to career compass
+    //      router.push("/career-compass");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+  };
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    industries: [],
+    passions: [],
+    jobTypes: [],
+    skills: [],
+    cirriculumPdf: null,
+    resumePdf: null,
+  });
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 
   return (
@@ -537,6 +556,7 @@ export default function SignUp() {
             </div>
           </div>
         )}
+
         {/* get user skills */}
         {step === 4 && (
           //show multiple choice for industries
@@ -593,6 +613,70 @@ export default function SignUp() {
           </div>
         )}
 
+        {/* get user academic cirriculum pdf*/}
+        {step === 5 && (
+          <div className="pt-20 pb-3 ">
+            {/* Page header */}
+            <div className="max-w-3xl mx-auto text-center pb-12 ">
+              <h1 className="h1">Upload your academic cirriculum pdf</h1>
+            </div>
+            {/* Form */}
+            <div className="max-w-sm mx-auto">
+              <form>
+                <div className="flex flex-wrap -mx-3 mb-4">
+                  <div className="w-full px-3">
+                    <label
+                      className="block text-gray-800 text-sm font-medium mb-1"
+                      htmlFor="cirriculumPdf"
+                    >
+                      Academic Curriculum PDF
+                    </label>
+                    <input
+                      id="cirriculumPdf"
+                      type="file"
+                      accept=".pdf"
+                      className="form-input w-full text-gray-800"
+                      onChange={(e) => handleFileChange(e, "cirriculumPdf")}
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* get user academic cirriculum pdf*/}
+        {step === 6 && (
+          <div className="pt-20 pb-3 ">
+            {/* Page header */}
+            <div className="max-w-3xl mx-auto text-center pb-12 ">
+              <h1 className="h1">Upload your resume &#40;optional&#41;</h1>
+            </div>
+            {/* Form */}
+            <div className="max-w-sm mx-auto">
+              <form>
+                <div className="flex flex-wrap -mx-3 mb-4">
+                  <div className="w-full px-3">
+                    <label
+                      className="block text-gray-800 text-sm font-medium mb-1"
+                      htmlFor="resumePdf"
+                    >
+                      Resume
+                    </label>
+                    <input
+                      id="resumePdf"
+                      type="file"
+                      accept=".pdf"
+                      className="form-input w-full text-gray-800"
+                      onChange={(e) => handleFileChange(e, "resumePdf")}
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
         <div className="flex flex-wrap -mx-3 mt-6">
           <div className="w-full px-3  flex items-center justify-center gap-4 ">
             {step > 0 && (
@@ -605,7 +689,7 @@ export default function SignUp() {
                 Previous
               </button>
             )}
-            {step !== 4 ? (
+            {step !== 6 ? (
               <button
                 className="btn text-white bg-blue-600  w-52 "
                 onClick={() => {
