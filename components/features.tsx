@@ -41,7 +41,7 @@ export default function Features() {
           </div>
 
           {/* Career Compass */}
-          <div className="md:grid md:grid-cols-12 md:gap-6 mb-10">
+          <div className="md:grid md:grid-cols-12 md:gap-6 mb-20 ">
             {/* Content */}
             <div
               className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-7 lg:col-span-6 md:mt-6"
@@ -193,10 +193,8 @@ export default function Features() {
             </div>
           </div>
 
-          <div className="w-full border-2 border-gray-300 h-1 my-14 rounded-sm bg-gray-300"></div>
-
           {/* Solver Space */}
-          <div className="md:grid md:grid-cols-12 md:gap-6 ">
+          <div className="md:grid md:grid-cols-12 md:gap-6 mb-20 ">
             {/* Content */}
             <div
               className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-7 lg:col-span-6 md:mt-6"
@@ -234,10 +232,8 @@ export default function Features() {
             </div>
           </div>
 
-          <div className="w-full border-2 border-gray-300 h-1 my-14 rounded-sm bg-gray-300"></div>
-
           {/* Interview Ace */}
-          <div className="md:grid md:grid-cols-12 md:gap-6  ">
+          <div className="md:grid md:grid-cols-12 md:gap-6 mb-20 ">
             {/* Content */}
             <div
               className="max-w-xl md:max-w-none md:w-full mx-auto md:col-span-7 lg:col-span-6 md:mt-6"
@@ -274,8 +270,6 @@ export default function Features() {
               />
             </div>
           </div>
-
-          <div className="w-full border-2 border-gray-300 h-1 my-14 rounded-sm bg-gray-300"></div>
         </div>
       </div>
     </section>

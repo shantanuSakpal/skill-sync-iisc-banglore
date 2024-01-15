@@ -28,7 +28,7 @@ export default function Header() {
       }`}
     >
       <div className="w-full mx-auto px-1 sm:px-6">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-16 ">
           {/* Site branding */}
           <div className="shrink-0 mr-4">
             <Logo />
