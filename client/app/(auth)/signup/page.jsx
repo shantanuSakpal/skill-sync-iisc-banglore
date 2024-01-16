@@ -3,180 +3,27 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import data from "@/data/data.json";
+import { auth, db, storage } from "@/config/firebase-config";
+import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
+import {
+  ref,
+  getDownloadURL,
+  uploadBytesResumable,
+  uploadBytes,
+} from "firebase/storage";
+import { IoCloudUploadOutline } from "react-icons/io5";
 
 export default function SignUp() {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(5);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isFileSelected, setIsFileSelected] = useState(false);
+
   const router = useRouter();
-  const industryCategories = [
-    "Agriculture & Environment",
-    "Arts & Handicraft",
-    "Construction & Engineering",
-    "Construction & Real Estate",
-    "Consulting & Business Services",
-    "Education",
-    "Energy & Utilities",
-    "Entertainment",
-    "Finance",
-    "Food & Nutrition",
-    "HR & Recruiting",
-    "Health & Wellness",
-    "Hospitality & Travel",
-    "Logistics & Transportation",
-    "Manufacturing & Production",
-    "Media & Communications",
-    "Other",
-    "Public Services",
-    "Retail & FMCG",
-    "Tech & Software",
-    "Telecom & Networking",
-  ];
-
-  const passions = [
-    "Administrative",
-    "Agriculture & Environment",
-    "Business & Leadership",
-    "Construction & Engineering",
-    "Customer Service & Support",
-    "Design & Arts",
-    "Education & Training",
-    "Energy & Utilities",
-    "Finance & Banking",
-    "Food & Nutrition",
-    "HR & Recruiting",
-    "Healthcare",
-    "Hospitality & Travel",
-    "Human Resources",
-    "IT & Software",
-    "Insurance",
-    "Legal Services",
-    "Logistics & Transportation",
-    "Maintenance & Repair",
-    "Manufacturing & Operations",
-    "Media & Communications",
-    "Other",
-    "Professional",
-    "Project & Program Management",
-    "Public Services & Community",
-    "Real Estate",
-    "Religious Services",
-    "Research & Science",
-  ];
-
-  const jobs = [
-    "Administrative Assistant",
-    "Office Manager",
-    "Executive Secretary",
-    "Agricultural Scientist",
-    "Environmental Engineer",
-    "Farm Manager",
-    "Business Analyst",
-    "Operations Manager",
-    "Executive Director",
-    "Civil Engineer",
-    "Construction Manager",
-    "Architect",
-    "Customer Service Representative",
-    "Technical Support Specialist",
-    "Call Center Supervisor",
-    "Graphic Designer",
-    "Interior Designer",
-    "Art Director",
-    "Teacher",
-    "Training Specialist",
-    "Education Consultant",
-    "Energy Analyst",
-    "Utilities Manager",
-    "Renewable Energy Engineer",
-    "Financial Analyst",
-    "Bank Manager",
-    "Investment Advisor",
-    "Nutritionist",
-    "Chef",
-    "Food Quality Inspector",
-    "HR Specialist",
-    "Recruitment Manager",
-    "Employee Relations Consultant",
-    "Healthcare Administrator",
-    "Registered Nurse",
-    "Medical Lab Technologist",
-    "Hotel Manager",
-    "Travel Agent",
-    "Tour Guide",
-    "Human Resources Manager",
-    "Employee Training Specialist",
-    "Benefits Administrator",
-    "IT Specialist",
-    "Software Engineer",
-    "Systems Analyst",
-    "Insurance Agent",
-    "Claims Adjuster",
-    "Underwriter",
-    "Legal Assistant",
-    "Paralegal",
-    "Legal Secretary",
-    "Logistics Coordinator",
-    "Warehouse Manager",
-    "Delivery Driver",
-    "Maintenance Technician",
-    "Repair Specialist",
-    "Facilities Manager",
-    "Manufacturing Engineer",
-    "Production Supervisor",
-    "Quality Control Inspector",
-    "Journalist",
-    "Public Relations Specialist",
-    "Social Media Manager",
-    "Other",
-    "Professional",
-    "Project Manager",
-    "Public Service Administrator",
-    "Community Organizer",
-    "Social Worker",
-    "Real Estate Agent",
-    "Property Manager",
-    "Appraiser",
-    "Pastor",
-    "Religious Educator",
-    "Chaplain",
-    "Research Scientist",
-    "Data Analyst",
-    "Lab Technician",
-  ];
-
-  const skills = [
-    "JavaScript",
-    "React",
-    "Vue.js",
-    "Node.js",
-    "Python",
-    "Java",
-    "C#",
-    "PHP",
-    "Ruby",
-    "HTML",
-    "Bootstrap",
-    "Django",
-    "Flask",
-    "Express.js",
-    "RESTful API Development",
-    "GraphQL",
-    "Databases (MySQL, PostgreSQL, MongoDB)",
-    "Responsive Web Design",
-    "Git/GitHub",
-    "Webpack",
-    "Jira",
-    "Unit Testing",
-    "Continuous Integration/Continuous Deployment (CI/CD)",
-    "Agile/Scrum Methodologies",
-    "Containerization (Docker)",
-    "Microservices Architecture",
-    "Cloud Platforms (AWS, Azure, Google Cloud)",
-    "Web Security",
-    "Machine Learning",
-    "Blockchain",
-    "UI/UX Design",
-    "Mobile App Development (iOS/Android)",
-  ];
+  const industryCategories = data.industryCategories;
+  const passions = data.passions;
+  const jobs = data.jobs;
+  const skills = data.skills;
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -196,13 +43,51 @@ export default function SignUp() {
     skill.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleFileChange = (e, field) => {
+  const handleFileChange = async (e, field) => {
     const file = e.target.files[0];
+    if (file) {
+      setFormData((prevData) => ({ ...prevData, [field]: file }));
+      setIsFileSelected(true);
+    }
+  };
 
-    setFormData((prevData) => ({
-      ...prevData,
-      [field]: file,
-    }));
+  const handleUploadFile = async (file, field) => {
+    if (file) {
+      setUploadProgress(0);
+      setIsFileSelected(true);
+
+      const storageRef = ref(storage, `${field}/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on("state_changed", (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUploadProgress(progress);
+      });
+
+      try {
+        await uploadTask;
+
+        // Get the download URL
+        const downloadURL = await getDownloadURL(storageRef);
+
+        // Update the form data with the download URL
+        setFormData((prevData) => ({
+          ...prevData,
+          [field]: downloadURL,
+        }));
+
+        console.log(
+          `${field} uploaded successfully. Download URL:`,
+          downloadURL
+        );
+      } catch (error) {
+        console.error(`Error uploading ${field}:`, error);
+      }
+    } else {
+      alert("Please select a file to upload.");
+      setIsFileSelected(false);
+    }
   };
 
   const handleCheckboxChange = (value) => {
@@ -280,38 +165,23 @@ export default function SignUp() {
     setStep(step + 1);
     //clear searh term
     setSearchTerm("");
+    setIsFileSelected(false);
+    setUploadProgress(0);
   };
 
   const handleFinish = () => {
     //log the form data, the form data is being stored in formData
     console.log("formData,", formData);
     /*e.g. formData = {
-            "name": "shantanu sakpal",
-            "email": "shantanuesakpal1405@gmail.com",
-            "industries": [
-              "Agriculture & Environment",
-              "Tech & Software"
-            ],
-            "passions": [
-              "IT & Software",
-              "Agriculture & Environment",
-              "Healthcare"
-            ],
-            "jobTypes": [
-              "Medical Lab Technologist",
-              "Data Analyst"
-            ],
-            "skills": [
-              "JavaScript",
-              "Vue.js"
-            ],
-            "cirriculumPdf": {
-              File Object
-            },
-            "resumePdf": {
-              File Object
-            }
-          } */
+              "name": "",
+              "email": "",
+              "industries": [],
+              "passions": [],
+              "jobTypes": [],
+              "skills": [],
+              "cirriculumPdf": "firebase link to the pdf",
+              "resumePdf": "firebase link to the pdf"
+            } */
 
     //send the form data to the backend
 
@@ -640,9 +510,28 @@ export default function SignUp() {
                       className="form-input w-full text-gray-800"
                       onChange={(e) => handleFileChange(e, "cirriculumPdf")}
                     />
+                    {uploadProgress > 0 && (
+                      <div className="text-xs text-gray-600 mt-2">
+                        Upload progress: {uploadProgress.toFixed(2)}%
+                      </div>
+                    )}
                   </div>
                 </div>
               </form>
+              {isFileSelected && (
+                <button
+                  className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${
+                    uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
+                  }`}
+                  disabled={uploadProgress > 0}
+                  onClick={() =>
+                    handleUploadFile(formData.cirriculumPdf, "cirriculumPdf")
+                  }
+                >
+                  Upload{" "}
+                  <IoCloudUploadOutline className="ml-3 text-lg font-bold" />
+                </button>
+              )}
             </div>
           </div>
         )}
@@ -672,9 +561,28 @@ export default function SignUp() {
                       className="form-input w-full text-gray-800"
                       onChange={(e) => handleFileChange(e, "resumePdf")}
                     />
+                    {uploadProgress > 0 && (
+                      <div className="text-xs text-gray-600 mt-2">
+                        Upload progress: {uploadProgress.toFixed(2)}%
+                      </div>
+                    )}
                   </div>
                 </div>
               </form>
+              {isFileSelected && (
+                <button
+                  className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${
+                    uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
+                  }`}
+                  disabled={uploadProgress > 0}
+                  onClick={() =>
+                    handleUploadFile(formData.resumePdf, "resumePdf")
+                  }
+                >
+                  Upload{" "}
+                  <IoCloudUploadOutline className="ml-3 text-lg font-bold" />
+                </button>
+              )}
             </div>
           </div>
         )}
