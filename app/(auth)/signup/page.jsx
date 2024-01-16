@@ -278,6 +278,8 @@ export default function SignUp() {
     //scroll to top
     window.scrollTo(0, 0);
     setStep(step + 1);
+    //clear searh term
+    setSearchTerm("");
   };
 
   const handleFinish = () => {
