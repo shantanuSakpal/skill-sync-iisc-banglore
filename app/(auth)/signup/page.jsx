@@ -349,7 +349,7 @@ export default function SignUp() {
     <section className="bg-gradient-to-b from-gray-100 to-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {step === 0 && (
-          <div className="pt-20 pb-3 ">
+          <div className="  pb-3 ">
             {/* Page header */}
             <div className="max-w-3xl mx-auto text-center pb-12 ">
               <h1 className="h1">
@@ -404,7 +404,7 @@ export default function SignUp() {
         {/* get user industry */}
         {step === 1 && (
           //show multiple choice for industries
-          <div className="pt-20 pb-3 ">
+          <div className="  pb-3 ">
             {/* Page header */}
             <div className="max-w-3xl mx-auto text-center pb-12 ">
               <h1 className="h1">Which industries spark your curiosity?</h1>
@@ -456,7 +456,7 @@ export default function SignUp() {
         {/* get user passion */}
         {step === 2 && (
           //show multiple choice for industries
-          <div className="pt-20 pb-3 ">
+          <div className="  pb-3 ">
             {/* Page header */}
             <div className="max-w-3xl mx-auto text-center pb-12 ">
               <h1 className="h1">What work do you love to do?</h1>
@@ -508,7 +508,7 @@ export default function SignUp() {
         {/* get user job type */}
         {step === 3 && (
           //show multiple choice for industries
-          <div className="pt-20 pb-3 ">
+          <div className="  pb-3 ">
             {/* Page header */}
             <div className="max-w-3xl mx-auto text-center pb-12 ">
               <h1 className="h1">What positions do you aspire?</h1>
@@ -560,7 +560,7 @@ export default function SignUp() {
         {/* get user skills */}
         {step === 4 && (
           //show multiple choice for industries
-          <div className="pt-20 pb-3 ">
+          <div className="  pb-3 ">
             {/* Page header */}
             <div className="max-w-3xl mx-auto text-center pb-12 ">
               <h1 className="h1">
@@ -615,7 +615,7 @@ export default function SignUp() {
 
         {/* get user academic cirriculum pdf*/}
         {step === 5 && (
-          <div className="pt-20 pb-3 ">
+          <div className="  pb-3 ">
             {/* Page header */}
             <div className="max-w-3xl mx-auto text-center pb-12 ">
               <h1 className="h1">Upload your academic cirriculum pdf</h1>
@@ -647,7 +647,7 @@ export default function SignUp() {
 
         {/* get user academic cirriculum pdf*/}
         {step === 6 && (
-          <div className="pt-20 pb-3 ">
+          <div className="  pb-3 ">
             {/* Page header */}
             <div className="max-w-3xl mx-auto text-center pb-12 ">
               <h1 className="h1">Upload your resume &#40;optional&#41;</h1>
