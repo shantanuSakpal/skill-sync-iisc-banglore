@@ -15,7 +15,7 @@ import {
 import { IoCloudUploadOutline } from "react-icons/io5";
 
 export default function SignUp() {
-  const [step, setStep] = useState(5);
+  const [step, setStep] = useState(0);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isFileSelected, setIsFileSelected] = useState(false);
 
@@ -175,12 +175,16 @@ export default function SignUp() {
     /*e.g. formData = {
               "name": "",
               "email": "",
-              "industries": [],
+              "industries": ["fadfa","asdf"],
               "passions": [],
               "jobTypes": [],
               "skills": [],
-              "cirriculumPdf": "firebase link to the pdf",
-              "resumePdf": "firebase link to the pdf"
+              "cirriculumPdf": [
+                "subject 1", 
+                "subject 2",
+              ]
+              "resumePdf": "firebase link to the pdf",
+              ""
             } */
 
     //send the form data to the backend
