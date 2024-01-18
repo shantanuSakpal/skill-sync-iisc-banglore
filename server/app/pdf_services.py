@@ -4,12 +4,12 @@ import os
 def extract_text_from_pdf(url, start_page=None, end_page=None):
     # Download PDF file
     response = requests.get(url)
-    with open("curriculum.pdf", "wb") as pdf_file:
+    with open("./utils/curriculum.pdf", "wb") as pdf_file:
         pdf_file.write(response.content)
 
     # Open the PDF file and extract text
     text = ""
-    with open("curriculum.pdf", "rb") as pdf_file:
+    with open("./utils/curriculum.pdf", "rb") as pdf_file:
         pdf_reader = PdfReader(pdf_file)
 
         # If start_page or end_page is None, set to the first and last page, respectively
@@ -27,7 +27,7 @@ def extract_text_from_pdf(url, start_page=None, end_page=None):
             text += page.extract_text()
 
     # Delete the temporary PDF file
-    os.remove("curriculum.pdf")
+    os.remove("./utils/curriculum.pdf")
     return text
 
 

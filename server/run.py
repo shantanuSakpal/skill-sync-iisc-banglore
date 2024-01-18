@@ -11,23 +11,29 @@ CORS(app)
 
 @app.route('/parse_resume', methods=['POST'])
 def parse_resume():
+  try : 
   # get the url from the body of the post request 
-  url = request.json['url']
-  # Download the file from the url
-  r = requests.get(url, allow_redirects=True)
-  parsed_url = urlparse(url)
-  # Extract the path from the URL and unquote it
-  unquoted_path = unquote(parsed_url.path)
-  # Get the filename from the path
-  filename = unquoted_path.split("/")[-1]
-  # Save the file to the utils directory
-  with open(os.path.join(os.path.abspath('./utils'), filename), 'wb') as f:
-    f.write(r.content)
+    url = request.json['url']
+    # Download the file from the url
+    r = requests.get(url, allow_redirects=True)
+    parsed_url = urlparse(url)
+    # Extract the path from the URL and unquote it
+    unquoted_path = unquote(parsed_url.path)
+    # Get the filename from the path
+    filename = unquoted_path.split("/")[-1]
+    # Save the file to the utils directory
+    with open(os.path.join(os.path.abspath('./utils'), filename), 'wb') as f:
+      f.write(r.content)
+    
+    # Call the resume_parser function
+    dictionary_with_extracted_parameters = resume_parser(filename)
+    # Delete the file from the utils directory
+    os.remove(os.path.join(os.path.abspath('./utils'), filename))
+    
+    return jsonify({"result": dictionary_with_extracted_parameters})
   
-  # Call the resume_parser function
-  dictionary_with_extracted_parameters = resume_parser(filename)
-  
-  return dictionary_with_extracted_parameters
+  except Exception as e:
+    return jsonify({"error": str(e)})
 
 @app.route('/generate_curriculum', methods=['POST'])
 def generate_curriculum_api():
