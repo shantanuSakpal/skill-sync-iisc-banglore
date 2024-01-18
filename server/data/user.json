@@ -1,0 +1,22 @@
+{
+    "name": "Abhishek Sinha",
+    "email": "abhishekssinha2003@gmail.com",
+    "industries": [
+        "Education"
+    ],
+    "passions": [
+        "Education & Training"
+    ],
+    "jobTypes": [
+        "Software Engineer",
+        "mobile dev "
+    ],
+    "skills": [
+        "Flask",
+        "flutter",
+        "spring boot",
+        "android"
+    ],
+    "cirriculumPdf": "url",
+    "resumePdf": "url"
+}

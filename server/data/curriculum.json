@@ -1,0 +1,211 @@
+[
+    {
+        "subject_name": "Artificial Intelligence",
+        "chapters": [
+            {
+                "chapter_name": "Introduction to Artificial Intelligence",
+                "topics": [
+                    "Introduction",
+                    "History of Artificial Intelligence",
+                    "Intelligent Systems",
+                    "Categorization of Intelligent System",
+                    "Components of AI Program",
+                    "Foundations of AI",
+                    "Sub-areas of AI",
+                    "Current trends in AI"
+                ]
+            },
+            {
+                "chapter_name": "Problem Solving",
+                "topics": [
+                    "Solving problem by Searching",
+                    "Problem Solving Agent",
+                    "Formulating Problems",
+                    "Example Problems",
+                    "State Space Search",
+                    "Uninformed search",
+                    "Breadth First Search (BFS)",
+                    "Depth First Search (DFS)",
+                    "Depth Limited Search",
+                    "Depth First Iterative Deepening (DFID)",
+                    "Heuristic Search",
+                    "Best first Search",
+                    "Hill Climbing",
+                    "Solution Space",
+                    "Travelling Salesman Problem"
+                ]
+            },
+            {
+                "chapter_name": "Population Based Methods",
+                "topics": [
+                    "Simulated annealing",
+                    "Local beam search",
+                    "Genetic algorithms",
+                    "Ant Colony optimization",
+                    "Finding Optimal Paths",
+                    "Branch and Bound",
+                    "A*",
+                    "Admissibility and monotonicity properties of A*",
+                    "Game Playing",
+                    "Game Theory",
+                    "Board games and game tree",
+                    "The minimax algorithm",
+                    "Alpha-Beta Pruning",
+                    "SSS*"
+                ]
+            },
+            {
+                "chapter_name": "Planning",
+                "topics": [
+                    "Domain independent planning",
+                    "Forward and Backward search",
+                    "Goal Stack Planning",
+                    "Plan Space Planning",
+                    "Means Ends Analysis",
+                    "Graphplan",
+                    "Algorithm AO*"
+                ]
+            },
+            {
+                "chapter_name": "Expert System",
+                "topics": [
+                    "Introduction",
+                    "Phases in building Expert Systems",
+                    "Architecture",
+                    "Rule base systems",
+                    "Inference Engine",
+                    "Match-Resolve-Execute",
+                    "Rete Net"
+                ]
+            },
+            {
+                "chapter_name": "Knowledge and Reasoning in Logic",
+                "topics": [
+                    "Logic",
+                    "Soundness and Completeness",
+                    "Propositional Logic",
+                    "First Order Logic",
+                    "Forward chaining",
+                    "Backward chaining and Refutation",
+                    "Uncertain Knowledge and Reasoning",
+                    "Fuzzy sets",
+                    "Fuzzy Logic",
+                    "Fuzzy Logic Controller"
+                ]
+            }
+        ]
+    },
+    {
+        "subject_name": "Web Engineering Laboratory",
+        "chapters": [
+            {
+                "chapter_name": "HTML",
+                "topics": [
+                    "Create a static web page using HTML.",
+                    "Create a class timetable using HTML.",
+                    "Create a registration form using HTML.",
+                    "Create a web page using HTML5 tags."
+                ]
+            },
+            {
+                "chapter_name": "CSS",
+                "topics": [
+                    "Design a web page using External or Embedded Style Sheet.",
+                    "Design a responsive web page using media queries and CSS3.",
+                    "Design a web page using Bootstrap.",
+                    "Design a resume using Bootstrap.",
+                    "Design the admission form using Bootstrap."
+                ]
+            },
+            {
+                "chapter_name": "Client-Side Scripting",
+                "topics": [
+                    "Programs based on objects in JavaScript.",
+                    "Program to design a calculator using JavaScript.",
+                    "Programs based on form validation."
+                ]
+            },
+            {
+                "chapter_name": "React JS",
+                "topics": [
+                    "Create an application using React."
+                ]
+            },
+            {
+                "chapter_name": "Introduction to Git and GitHub",
+                "topics": [
+                    "Introduction to Version Control",
+                    "Using Git Locally and Remotely",
+                    "Collaboration"
+                ]
+            },
+            {
+                "chapter_name": "Server-Side Scripting",
+                "topics": [
+                    "Installation and Configuration of Node.js server",
+                    "Program based on inbuilt functions in Node.js"
+                ]
+            },
+            {
+                "chapter_name": "Express & MongoDB",
+                "topics": [
+                    "Using Mongoose to make schemas in MongoDB.",
+                    "Making API end points using Express.",
+                    "Doing CRUD on database MongoDB using Express.",
+                    "Writing tests using mocha and chai."
+                ]
+            },
+            {
+                "chapter_name": "XML & XSL",
+                "topics": [
+                    "Design XML using XML DTD and schema.",
+                    "Implementing XSL elements in XML.",
+                    "Validating XML data through DTD and storing in database."
+                ]
+            },
+            {
+                "chapter_name": "Concepts of Cloud Computing",
+                "topics": [
+                    "Introduction to cloud computing.",
+                    "NIST model",
+                    "Service and Deployment models."
+                ]
+            },
+            {
+                "chapter_name": "Networking and Security",
+                "topics": [
+                    "Identity and Access Management",
+                    "Networking basics",
+                    "VPC networking and security",
+                    "Design a VPC",
+                    "Build your own VPC and Launch a Web Server"
+                ]
+            },
+            {
+                "chapter_name": "Compute Service",
+                "topics": [
+                    "Compute Services overview",
+                    "Elastic Computing",
+                    "Serverless Compute service",
+                    "Deploying and scaling web applications"
+                ]
+            },
+            {
+                "chapter_name": "Storage Service",
+                "topics": [
+                    "Cloud object storage",
+                    "Cloud block storage",
+                    "Elastic file system"
+                ]
+            },
+            {
+                "chapter_name": "Database Service",
+                "topics": [
+                    "Cloud Relational database services",
+                    "Cloud NoSQL Databases",
+                    "Elastic load balancing"
+                ]
+            }
+        ]
+    }
+]
