@@ -1,4 +1,4 @@
-import openai
+from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -46,7 +46,7 @@ def generate_curriculum(extracted_text):
         }
     ]->  ( list of subject and further details  ) from this syllabus data -> give complete json and only return the json output no other description   '''
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
     model="gpt-3.5-turbo-0613",
     messages=[
             {"role": "system", "content": "You are a helpful assistant."},
