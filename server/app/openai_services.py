@@ -1,6 +1,8 @@
 import openai
+from dotenv import load_dotenv
 
-# Set your OpenAI GPT API key
+load_dotenv()
+client = OpenAI(api_key=os.getenv('OPEN_AI_SECRET_KEY'))
 
 def generate_curriculum(extracted_text):
 
