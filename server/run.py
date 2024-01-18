@@ -1,8 +1,8 @@
 import os
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import requests
 from urllib.parse import unquote, urlparse
-from app import resume_parser
+from app import resume_parser, extract_text_from_pdf, generate_curriculum
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -29,6 +29,25 @@ def parse_resume():
   
   return dictionary_with_extracted_parameters
 
+@app.route('/generate_curriculum', methods=['POST'])
+def generate_curriculum_api():
+    
+  try:
+    # Get PDF URL, start page, and end page from the request
+    pdf_url = request.json['pdf_url']
+    start_page_number = request.json['start_page']
+    end_page_number = request.json['end_page']
+
+    # Extract text from PDF
+    extracted_text = extract_text_from_pdf(pdf_url, start_page=start_page_number, end_page=end_page_number)
+    
+    # Generate curriculum JSON
+    generated_json = generate_curriculum(extracted_text)
+
+    return jsonify({"result": generated_json})
+
+  except Exception as e:
+    return jsonify({"error": str(e)})
 
 if __name__ == '__main__':
   app.run(debug=True, host='0.0.0.0', port=5000)
