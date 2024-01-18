@@ -1,10 +1,6 @@
-
-
-
 import openai
 
 # Set your OpenAI GPT API key
-
 
 def generate_curriculum(extracted_text):
 

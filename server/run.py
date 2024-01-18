@@ -1,7 +1,5 @@
 from flask import Flask, request, jsonify
-from service.pdf_services import extract_text_from_pdf
-from service.openai_services import generate_curriculum
-
+from app import extract_text_from_pdf, generate_curriculum
 
 app = Flask(__name__)
 
