@@ -2,6 +2,8 @@ import os
 from PyPDF2 import PdfReader
 from openai import OpenAI
 from dotenv import load_dotenv
+import json
+import json
 
 load_dotenv()
 client = OpenAI(api_key=os.getenv('OPEN_AI_SECRET_KEY'))
@@ -64,9 +66,15 @@ def main(file_name) :
         )
         return response.choices[0].message.content
 
+    resume_dictionary = generate_resume_dictionary(resume_text)
 
-    print(generate_resume_dictionary(resume_text))
-    return generate_resume_dictionary(resume_text)
+    resume_dict = json.loads(resume_dictionary)
+    # Save resume_dict as a JSON file
+    json_path = os.path.abspath('./utils/resume_dictionary.json')
+    with open(json_path, 'w') as json_file:
+        json.dump(resume_dict, json_file)
+
+    return resume_dict
 
 if __name__ == '__main__':
     main(file_name)
