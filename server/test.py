@@ -8,6 +8,20 @@ app = Flask(__name__)
 def home():
     return "running"
 
+@app.route('/parse_resume', methods=['POST'])
+def test_resume_parser():
+    # Specify the path to the resume_dictionary.json file
+    file_path = os.path.join(os.path.abspath('./utils'), 'resume_dictionary.json')
+
+    # Read the contents of the file
+    with open(file_path, 'r') as file:
+        resume_dictionary = json.load(file)
+
+    print(json.dumps(resume_dictionary, indent=4))
+
+    return json.dumps(resume_dictionary, indent=4)
+    # return jsonify({"result": "success"})
+
 @app.route('/generate_curriculum', methods=['POST'])
 def generate_curriculum_api():
     try:

@@ -13,6 +13,7 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import { url } from "inspector";
 
 export default function SignUp() {
   const [step, setStep] = useState(0);
@@ -77,10 +78,26 @@ export default function SignUp() {
           [field]: downloadURL,
         }));
 
-        console.log(
-          `${field} uploaded successfully. Download URL:`,
-          downloadURL
-        );
+        // console.log(
+        //   `${field} uploaded successfully. Download URL:`,
+        //   downloadURL
+        // );
+        // send a post request to the server, the body of which contains the download url
+        fetch("/api/user", {
+          method: "POST",
+          body: {
+            "url": downloadURL,
+          },
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((text) => console.log(text))
+          .catch((err) => {
+            console.log(err);
+          });
+
       } catch (error) {
         console.error(`Error uploading ${field}:`, error);
       }
@@ -91,7 +108,7 @@ export default function SignUp() {
   };
 
   const handleCheckboxChange = (value) => {
-    if (step === 1) {
+    if (step === 2) {
       //industry
       if (formData.industries.includes(value)) {
         //remove
@@ -106,7 +123,7 @@ export default function SignUp() {
           industries: [...prevData.industries, value],
         }));
       }
-    } else if (step === 2) {
+    } else if (step === 3) {
       //passion
       if (formData.passions.includes(value)) {
         //remove
@@ -121,7 +138,7 @@ export default function SignUp() {
           passions: [...prevData.passions, value],
         }));
       }
-    } else if (step === 3) {
+    } else if (step === 4) {
       //job type
       if (formData.jobTypes.includes(value)) {
         //remove
@@ -136,7 +153,7 @@ export default function SignUp() {
           jobTypes: [...prevData.jobTypes, value],
         }));
       }
-    } else if (step === 4) {
+    } else if (step === 5) {
       //skills
       if (formData.skills.includes(value)) {
         //remove
@@ -277,8 +294,60 @@ export default function SignUp() {
           </div>
         )}
 
-        {/* get user industry */}
+        {/* upload resume */}
         {step === 1 && (
+          //show multiple choice for industries
+          <div className="  pb-3 ">
+            {/* Page header */}
+            <div className="max-w-3xl mx-auto text-center pb-12 ">
+              <h1 className="h1">Upload your resume &#40;optional&#41;</h1>
+            </div>
+            {/* Form */}
+            <div className="max-w-sm mx-auto">
+              <form>
+                <div className="flex flex-wrap -mx-3 mb-4">
+                  <div className="w-full px-3">
+                    <label
+                      className="block text-gray-800 text-sm font-medium mb-1"
+                      htmlFor="resumePdf"
+                    >
+                      Resume
+                    </label>
+                    <input
+                      id="resumePdf"
+                      type="file"
+                      accept=".pdf"
+                      className="form-input w-full text-gray-800"
+                      onChange={(e) => handleFileChange(e, "resumePdf")}
+                    />
+                    {uploadProgress > 0 && (
+                      <div className="text-xs text-gray-600 mt-2">
+                        Upload progress: {uploadProgress.toFixed(2)}%
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </form>
+              {isFileSelected && (
+                <div className={"flex items-center justify-center"}>
+                  <button
+                    className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
+                      }`}
+                    disabled={uploadProgress > 0}
+                    onClick={() =>
+                      handleUploadFile(formData.resumePdf, "resumePdf")
+                    }
+                  >
+                    Upload{" "}
+                    <IoCloudUploadOutline className="ml-3 text-lg font-bold" />
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {step === 2 && (
           //show multiple choice for industries
           <div className="  pb-3 ">
             {/* Page header */}
@@ -330,7 +399,7 @@ export default function SignUp() {
         )}
 
         {/* get user passion */}
-        {step === 2 && (
+        {step === 3 && (
           //show multiple choice for industries
           <div className="  pb-3 ">
             {/* Page header */}
@@ -382,7 +451,7 @@ export default function SignUp() {
         )}
 
         {/* get user job type */}
-        {step === 3 && (
+        {step === 4 && (
           //show multiple choice for industries
           <div className="  pb-3 ">
             {/* Page header */}
@@ -434,7 +503,7 @@ export default function SignUp() {
         )}
 
         {/* get user skills */}
-        {step === 4 && (
+        {step === 5 && (
           //show multiple choice for industries
           <div className="  pb-3 ">
             {/* Page header */}
@@ -490,7 +559,7 @@ export default function SignUp() {
         )}
 
         {/* get user academic cirriculum pdf*/}
-        {step === 5 && (
+        {step === 6 && (
           <div className="  pb-3 ">
             {/* Page header */}
             <div className="max-w-3xl mx-auto text-center pb-12 ">
@@ -524,9 +593,8 @@ export default function SignUp() {
               </form>
               {isFileSelected && (
                 <button
-                  className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${
-                    uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
-                  }`}
+                  className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
+                    }`}
                   disabled={uploadProgress > 0}
                   onClick={() =>
                     handleUploadFile(formData.cirriculumPdf, "cirriculumPdf")
@@ -541,55 +609,6 @@ export default function SignUp() {
         )}
 
         {/* get user academic cirriculum pdf*/}
-        {step === 6 && (
-          <div className="  pb-3 ">
-            {/* Page header */}
-            <div className="max-w-3xl mx-auto text-center pb-12 ">
-              <h1 className="h1">Upload your resume &#40;optional&#41;</h1>
-            </div>
-            {/* Form */}
-            <div className="max-w-sm mx-auto">
-              <form>
-                <div className="flex flex-wrap -mx-3 mb-4">
-                  <div className="w-full px-3">
-                    <label
-                      className="block text-gray-800 text-sm font-medium mb-1"
-                      htmlFor="resumePdf"
-                    >
-                      Resume
-                    </label>
-                    <input
-                      id="resumePdf"
-                      type="file"
-                      accept=".pdf"
-                      className="form-input w-full text-gray-800"
-                      onChange={(e) => handleFileChange(e, "resumePdf")}
-                    />
-                    {uploadProgress > 0 && (
-                      <div className="text-xs text-gray-600 mt-2">
-                        Upload progress: {uploadProgress.toFixed(2)}%
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </form>
-              {isFileSelected && (
-                <button
-                  className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${
-                    uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
-                  }`}
-                  disabled={uploadProgress > 0}
-                  onClick={() =>
-                    handleUploadFile(formData.resumePdf, "resumePdf")
-                  }
-                >
-                  Upload{" "}
-                  <IoCloudUploadOutline className="ml-3 text-lg font-bold" />
-                </button>
-              )}
-            </div>
-          </div>
-        )}
 
         <div className="flex flex-wrap -mx-3 mt-6">
           <div className="w-full px-3  flex items-center justify-center gap-4 ">
@@ -606,11 +625,9 @@ export default function SignUp() {
             {step !== 6 ? (
               <button
                 className="btn text-white bg-blue-600  w-52 "
-                onClick={() => {
-                  handleNext();
-                }}
+                onClick={() => handleNext()}
               >
-                Next
+                { step === 1 ? Proceed : Next }
               </button>
             ) : (
               <button
