@@ -6,6 +6,8 @@ import BeforeInterviewStart from "../../components/interview/BeforeInterviewStar
 import UserVideoContainer from "@/components/interview/UserVideoContainer";
 
 export default function InterviewAce() {
+  const [isInterviewStarted, setIsInterviewStarted] = useState(false);
+
   const [customQuestions, setCustomQuestions] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [jobs, setJobs] = useState([
@@ -21,7 +23,6 @@ export default function InterviewAce() {
     "Machine Learning Engineer",
   ]);
   const [selectedJob, setSelectedJob] = useState();
-  const [isInterviewStarted, setIsInterviewStarted] = useState(true);
 
   const [questions, setQuestions] = useState([
     "Tell me about yourself.",
@@ -82,9 +83,11 @@ export default function InterviewAce() {
           handleAddMoreInput={handleAddMoreInput}
         />
       )}
-      <div className="fixed right-5 bottom-5 w-72 bg-gray-400 aspect-video rounded-lg shadow-md">
-        {/* <UserVideoContainer /> */}
-      </div>
+      {!isInterviewStarted && (
+        <div className="fixed right-5 bottom-5 w-72 bg-gray-400 aspect-video rounded-lg shadow-md">
+          <UserVideoContainer />
+        </div>
+      )}
     </div>
   );
 }

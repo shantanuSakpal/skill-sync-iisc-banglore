@@ -23,14 +23,6 @@ export default function UserVideoContainer() {
     };
 
     getWebcamStream();
-
-    return () => {
-      // Clean up the stream when the component unmounts
-      const stream = videoRef.current.srcObject;
-      if (stream instanceof MediaStream) {
-        stream.getTracks().forEach((track) => track.stop());
-      }
-    };
   }, []);
 
   return (
