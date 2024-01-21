@@ -18,7 +18,7 @@ const TaskComponent = ({ taskData }) => {
     <div style={{ display: 'flex' }}>
       {/* Left Side */}
       <div style={{ width: '50%', padding: '20px' }}>
-        <div className='flex justify-center' onClick={() => handleTextClick(taskData)}>
+        <div className='flex justify-center'>
           <h1>
             <strong>{taskData.name}</strong>
           </h1>
