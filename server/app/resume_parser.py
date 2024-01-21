@@ -2,7 +2,7 @@ import os
 from PyPDF2 import PdfReader
 from openai import OpenAI
 from dotenv import load_dotenv
-import json
+
 import json
 
 load_dotenv()
@@ -68,6 +68,8 @@ def main(file_name) :
 
     resume_dictionary = generate_resume_dictionary(resume_text)
 
+    print(resume_dictionary)
+
     resume_dict = json.loads(resume_dictionary)
     # Save resume_dict as a JSON file
     json_path = os.path.abspath('./utils/resume_dictionary.json')
@@ -76,6 +78,6 @@ def main(file_name) :
 
     return resume_dict
 
-if __name__ == '__main__':
-    main(file_name)
+# if __name__ == '__main__':
+#     main(file_name)
 

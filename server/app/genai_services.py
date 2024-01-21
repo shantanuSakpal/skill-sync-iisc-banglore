@@ -1,6 +1,7 @@
 import google.generativeai as genai
 from dotenv import load_dotenv
 import os
+import json
 
 # Load environment variables from .env
 
@@ -17,7 +18,7 @@ def gemenai_output(prompt : str) -> str:
     "temperature": 0.8,
     "top_p": 1,
     "top_k": 1,
-    "max_output_tokens": 2048,
+    "max_output_tokens": 10000,
     }
 
     safety_settings = [
@@ -52,55 +53,6 @@ def gemenai_output(prompt : str) -> str:
 
     return response.text
 
-
-
-
-
-def generate_curriculum(extracted_text):
-
-
-    # Define a prompt
-    prompt = '''extract this json data-> [
-        {
-        
-            "subject_name": "Time Series Analysis",
-            "chapters" : [
-                {
-                    "chapter_name": "Intro to time Series",
-                    "topics " : [
-                        ""
-                    ]
-                }
-            
-            ]
-
-        },
-        {
-            "subject_name" : "Machine Learning 2 ",
-            "chapters" : [
-                {
-                    "chapter_name": "Introduction to Artificial Neural Learning:",
-                    "topics " : [
-                        "Activation functions",
-                        "McCulloch Pitts Neuron"
-                    ]
-                },
-                {
-                    "chapter_name": "Supervised Learning Networks",
-                    "topics " : [
-                        "Activation functions",
-                        "Multilayer Networks"
-                    ]
-                }
-                
-            ]
-
-        }
-    ]->  ( list of subject and further details  ) from this syllabus data -> give complete json and only return the json output no other description -> syllabus data   ''' + extracted_text
-
-    output = gemenai_output(prompt )
-
-    return output
 
 
 

@@ -14,10 +14,10 @@ def generate_curriculum(extracted_text):
     prompt = '''extract this json data-> [
         {
         
-            "subject_name": "Time Series Analysis",
+            "subject_name": "",
             "chapters" : [
                 {
-                    "chapter_name": "Intro to time Series",
+                    "chapter_name": "",
                     "topics " : [
                         ""
                     ]
@@ -27,23 +27,16 @@ def generate_curriculum(extracted_text):
 
         },
         {
-            "subject_name" : "Machine Learning 2 ",
+            "subject_name" : " ",
             "chapters" : [
                 {
-                    "chapter_name": "Introduction to Artificial Neural Learning:",
+                    "chapter_name": "",
                     "topics " : [
-                        "Activation functions",
-                        "McCulloch Pitts Neuron"
-                    ]
-                },
-                {
-                    "chapter_name": "Supervised Learning Networks",
-                    "topics " : [
-                        "Activation functions",
-                        "Multilayer Networks"
+                        "",
+                        ""
                     ]
                 }
-                
+
             ]
 
         }
@@ -62,4 +55,7 @@ def generate_curriculum(extracted_text):
     generated_json = response['choices'][0]['message']['content'].strip()
 
     return generated_json
+
+
+
 

@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, jsonify
 import requests
 from urllib.parse import unquote, urlparse
-from app import resume_parser, extract_text_from_pdf, generate_curriculum
+from app import resume_parser, extract_text_from_pdf, generate_curriculum, generate_roadmap
 from flask_cors import CORS
 import json
 import json
@@ -48,9 +48,30 @@ def generate_curriculum_api():
 
     # Extract text from PDF
     extracted_text = extract_text_from_pdf(pdf_url, start_page=start_page_number, end_page=end_page_number)
+
+    print("text extracted...")
     
     # Generate curriculum JSON
     generated_json = generate_curriculum(extracted_text)
+
+    return jsonify({"result": generated_json})
+
+  except Exception as e:
+    return jsonify({"error": str(e)})
+  
+@app.route('/generate_roadmap', methods=['POST'])
+def generate_roadmap_api():
+    
+  try:
+    # Get PDF URL, start page, and end page from the request
+    skills = request.json['skills']
+    curriculum = request.json['curriculum']
+    aspiration = request.json['aspiration']
+    time_period = request.json['time_period']
+
+    
+    # Generate curriculum JSON
+    generated_json = generate_roadmap(skills=skills, curriculum=curriculum, aspiration=aspiration, time_period=time_period)
 
     return jsonify({"result": generated_json})
 
