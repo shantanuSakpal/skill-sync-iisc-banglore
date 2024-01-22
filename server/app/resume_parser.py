@@ -77,6 +77,6 @@ def main(file_name) :
 
     return resume_dict
 
-if __name__ == '__main__':
-    main(file_name)
+# if __name__ == '__main__':
+#     main(file_name)
 

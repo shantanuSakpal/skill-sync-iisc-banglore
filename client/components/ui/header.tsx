@@ -9,6 +9,7 @@ import MobileMenu from "./mobile-menu";
 
 export default function Header() {
   const [top, setTop] = useState<boolean>(true);
+  const [currentUrl, setCurrentUrl] = useState<string>("");
 
   // detect whether user has scrolled the page down by 10px
   const scrollHandler = () => {
@@ -19,7 +20,7 @@ export default function Header() {
     scrollHandler();
     window.addEventListener("scroll", scrollHandler);
     return () => window.removeEventListener("scroll", scrollHandler);
-  }, [top]);
+  }, [top, currentUrl]);
 
   return (
     <header
@@ -41,7 +42,10 @@ export default function Header() {
               <li>
                 <Link
                   href="/career-compass"
-                  className="text-lg text-gray-500 font-bold hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
+                  className={`text-lg text-gray-500 font-bold hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out ${
+                    currentUrl === "career-compass" && "text-gray-900"
+                  }`}
+                  onClick={() => setCurrentUrl("career-compass")}
                 >
                   Career Compass
                 </Link>
@@ -49,7 +53,10 @@ export default function Header() {
               <li>
                 <Link
                   href="/solver-space"
-                  className="text-lg text-gray-500 font-bold hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
+                  className={`text-lg text-gray-500 font-bold hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out ${
+                    currentUrl === "solver-space" && "text-gray-900"
+                  }`}
+                  onClick={() => setCurrentUrl("solver-space")}
                 >
                   Solver Space
                 </Link>
@@ -57,7 +64,10 @@ export default function Header() {
               <li>
                 <Link
                   href="/interview-ace"
-                  className="text-lg text-gray-500 font-bold hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out"
+                  className={`text-lg text-gray-500 font-bold hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out ${
+                    currentUrl === "interview-ace" && "text-gray-900"
+                  }`}
+                  onClick={() => setCurrentUrl("interview-ace")}
                 >
                   Interview Ace
                 </Link>

@@ -33,8 +33,9 @@ def extract_text_from_pdf(url, start_page=None, end_page=None):
 
 
 # # Example usage with your provided URL
-# pdf_url = "https://firebasestorage.googleapis.com/v0/b/iitb-brogrammers.appspot.com/o/cirriculumPdf%2Fsem5_syllabus.pdf?alt=media&token=85efb563-a49e-42d0-a53e-64f7d3e948ee"
+# pdf_url = "https://firebasestorage.googleapis.com/v0/b/iitb-brogrammers.appspot.com/o/cirriculumPdf%2Fsyllabus.pdf?alt=media&token=9c34aba0-6057-491f-9f27-97c5d581e91c"
 # start_page_number = 1
-# end_page_number = 3
+# end_page_number = 5
+
 # extracted_text = extract_text_from_pdf(pdf_url, start_page=start_page_number, end_page=end_page_number)
 # print(extracted_text)

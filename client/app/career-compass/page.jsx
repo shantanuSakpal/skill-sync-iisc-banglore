@@ -7,7 +7,10 @@ export default function CareerCompass() {
   const roadmap = data.roadmap;
   return (
     <div>
+      
       <Stepper roadmap={roadmap} />
+
+     
     </div>
   );
 }

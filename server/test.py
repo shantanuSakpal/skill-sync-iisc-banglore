@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-from app.pdf_services import extract_text_from_pdf
 import json
 import os
 from flask_cors import CORS
@@ -25,11 +24,11 @@ def test_resume_parser():
 def generate_curriculum_api():
     try:
         # Check if the curriculum.json file exists
-        if not os.path.exists("data/curriculum.json"):
+        if not os.path.exists("utils/curriculum.json"):
             raise FileNotFoundError("curriculum.json not found. Generate the curriculum first.")
 
         # Read content from curriculum.json
-        with open("data/curriculum.json", "r") as json_file:
+        with open("utils/curriculum.json", "r") as json_file:
             curriculum_content = json.load(json_file)
 
         # Return the content of curriculum.json
@@ -43,11 +42,11 @@ def generate_curriculum_api():
 def generate_roadmap_api():
     try:
         # Check if the curriculum.json file exists
-        if not os.path.exists("data/roadmap.json"):
+        if not os.path.exists("utils/roadmap.json"):
             raise FileNotFoundError("curriculum.json not found. Generate the curriculum first.")
 
         # Read content from curriculum.json
-        with open("data/roadmap.json", "r") as json_file:
+        with open("utils/roadmap.json", "r") as json_file:
             curriculum_content = json.load(json_file)
 
         # Return the content of curriculum.json
