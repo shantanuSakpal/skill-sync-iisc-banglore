@@ -13,7 +13,7 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import { IoCloudUploadOutline } from "react-icons/io5";
-import { url } from "inspector";
+// import { url } from "inspector";
 
 export default function SignUp() {
   const [step, setStep] = useState(0);
@@ -25,6 +25,7 @@ export default function SignUp() {
   const passions = data.passions;
   const jobs = data.jobs;
   const skills = data.skills;
+  const roadmapDuration = data.duration;
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -71,33 +72,43 @@ export default function SignUp() {
 
         // Get the download URL
         const downloadURL = await getDownloadURL(storageRef);
-
         // Update the form data with the download URL
         setFormData((prevData) => ({
           ...prevData,
           [field]: downloadURL,
         }));
 
-        // console.log(
-        //   `${field} uploaded successfully. Download URL:`,
-        //   downloadURL
-        // );
-        // send a post request to the server, the body of which contains the download url
-        fetch("/api/user", {
-          method: "POST",
-          body: {
-            "url": downloadURL,
-          },
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .then((text) => console.log(text))
-          .catch((err) => {
-            console.log(err);
-          });
-
+        if (field === "resumePdf") {
+          fetch("http://127.0.0.1:5000/parse_resume", {
+            method: "POST",
+            body: JSON.stringify({ url: downloadURL }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .then((json) => {
+              // addDoc(collection(db, "user_bio"), json[0])
+              // .then((docRef) => {
+              //   console.log("Document written with ID: ", docRef.id);
+              // })
+              // store json into localStorage 
+              // localStorage.setItem("user_bio", json[0]);
+              setFormData((prevData) => {
+                // the "skills" attribute (which is an array) in the formData should be set to the "skills" attribute from the json[0] 
+                return {
+                  ...prevData,
+                  industries: json[0].industryCategories,
+                  jobTypes: json[0].jobs,
+                  skills: json[0].skills,
+                }
+              })
+              handleNext();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
       } catch (error) {
         console.error(`Error uploading ${field}:`, error);
       }
@@ -168,7 +179,31 @@ export default function SignUp() {
           skills: [...prevData.skills, value],
         }));
       }
+    } else if (step === 6) {
+      //roadmapDuration
+      if (formData.roadmapDuration.includes(value)) {
+        //remove
+        setFormData((prevData) => ({
+          ...prevData,
+          skills: prevData.roadmapDuration.filter((item) => item !== value),
+        }));
+      } else {
+        //add
+        setFormData((prevData) => ({
+          ...prevData,
+          skills: [...prevData.roadmapDuration, value],
+        }));
+      }
     }
+  };
+
+  const handleButtonChange = (value) => {
+    //roadmapDuration
+    setFormData((prevData) => ({
+      ...prevData,
+      roadmapDuration: value,
+    }));
+    console.log(formData.roadmapDuration);
   };
 
   const handlePrev = () => {
@@ -189,20 +224,23 @@ export default function SignUp() {
   const handleFinish = () => {
     //log the form data, the form data is being stored in formData
     console.log("formData,", formData);
-    /*e.g. formData = {
-              "name": "",
-              "email": "",
-              "industries": [],
-              "passions": [],
-              "jobTypes": [],
-              "skills": [],
-              "cirriculumPdf": "firebase link to the pdf",
-              "resumePdf": "firebase link to the pdf"
-            } */
+    // store the formData object in the Loccal Strorage
+    localStorage.setItem("formData", JSON.stringify(formData));
+    /*e.g. 
+    formData = {
+      "name": "",
+      "email": "",
+      "industries": [],
+      "passions": [],
+      "jobTypes": [],
+      "skills": [],
+      "curriculumPdf": "firebase link to the pdf",
+      "resumePdf": "firebase link to the pdf"
+    } */
 
     //send the form data to the backend
 
-    // fetch("/api/user", {
+    // fetch("http://localhost:5000/suggest_roadmaps", {
     //   method: "POST",
     //   body: JSON.stringify(formData),
     //   headers: {
@@ -225,7 +263,8 @@ export default function SignUp() {
     passions: [],
     jobTypes: [],
     skills: [],
-    cirriculumPdf: null,
+    roadmapDuration: null,
+    curriculumPdf: null,
     resumePdf: null,
   });
 
@@ -292,7 +331,6 @@ export default function SignUp() {
 
         {/* upload resume */}
         {step === 1 && (
-          //show multiple choice for industries
           <div className="  pb-3 ">
             {/* Page header */}
             <div className="max-w-3xl mx-auto text-center pb-12 ">
@@ -379,6 +417,7 @@ export default function SignUp() {
                           <input
                             id={industry}
                             type="checkbox"
+                            checked={formData.industries.includes(industry)}
                             className="form-checkbox mr-3 text-blue-700"
                             value={industry}
                             onChange={() => handleCheckboxChange(industry)}
@@ -483,6 +522,7 @@ export default function SignUp() {
                           <input
                             id={job}
                             type="checkbox"
+                            checked={formData.jobTypes.includes(job)}
                             className="form-checkbox mr-3 text-blue-700"
                             value={job}
                             onChange={() => handleCheckboxChange(job)}
@@ -539,6 +579,7 @@ export default function SignUp() {
                           <input
                             id={skill}
                             type="checkbox"
+                            checked={formData.skills.includes(skill)}
                             className="form-checkbox mr-3 text-blue-700"
                             value={skill}
                             onChange={() => handleCheckboxChange(skill)}
@@ -553,13 +594,59 @@ export default function SignUp() {
             </div>
           </div>
         )}
-
-        {/* get user academic cirriculum pdf*/}
         {step === 6 && (
+          //show multiple choice for industries
           <div className="  pb-3 ">
             {/* Page header */}
             <div className="max-w-3xl mx-auto text-center pb-12 ">
-              <h1 className="h1">Upload your academic cirriculum pdf</h1>
+              <h1 className="h1">
+                When do you aspire to be Job Ready ?
+                <br />
+              </h1>
+            </div>
+            {/* Form */}
+            <div className="max-w-sm mx-auto">
+              <form>
+                <div className="flex flex-wrap -mx-3 ">
+                  <div className="w-full px-3">
+                    <label
+                      className="block text-gray-800 text-sm font-medium mb-1"
+                      htmlFor="search"
+                    >
+                      Duration
+                    </label>
+                    <div className="max-h-96 overflow-x-visible">
+                      {roadmapDuration.map((duration) => (
+                        <label
+                          key={duration}
+                          className="block text-lg my-4 font-medium hover:cursor-pointer"
+                          htmlFor={duration}
+                        >
+                          <input
+                            id={duration}
+                            type="radio"
+                            checked={formData.roadmapDuration === duration}
+                            className="mr-3 text-blue-700"
+                            value={duration}
+                            onChange={() => handleButtonChange(duration)}
+                          />
+                          {duration}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* get user academic curriculum pdf*/}
+        {step === 7 && (
+          <div className="  pb-3 ">
+            {/* Page header */}
+            <div className="max-w-3xl mx-auto text-center pb-12 ">
+              <h1 className="h1">Upload your academic curriculum pdf</h1>
             </div>
             {/* Form */}
             <div className="max-w-sm mx-auto">
@@ -568,16 +655,16 @@ export default function SignUp() {
                   <div className="w-full px-3">
                     <label
                       className="block text-gray-800 text-sm font-medium mb-1"
-                      htmlFor="cirriculumPdf"
+                      htmlFor="curriculumPdf"
                     >
                       Academic Curriculum PDF
                     </label>
                     <input
-                      id="cirriculumPdf"
+                      id="curriculumPdf"
                       type="file"
                       accept=".pdf"
                       className="form-input w-full text-gray-800"
-                      onChange={(e) => handleFileChange(e, "cirriculumPdf")}
+                      onChange={(e) => handleFileChange(e, "curriculumPdf")}
                     />
                     {uploadProgress > 0 && (
                       <div className="text-xs text-gray-600 mt-2">
@@ -588,29 +675,31 @@ export default function SignUp() {
                 </div>
               </form>
               {isFileSelected && (
-                <button
-                  className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
-                    }`}
-                  disabled={uploadProgress > 0}
-                  onClick={() =>
-                    handleUploadFile(formData.cirriculumPdf, "cirriculumPdf")
-                  }
-                >
-                  Upload{" "}
-                  <IoCloudUploadOutline className="ml-3 text-lg font-bold" />
-                </button>
+                <div className={"flex items-center justify-center"}>
+                  <button
+                    className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
+                      }`}
+                    disabled={uploadProgress > 0}
+                    onClick={() =>
+                      handleUploadFile(formData.curriculumPdf, "curriculumPdf")
+                    }
+                  >
+                    Upload{" "}
+                    <IoCloudUploadOutline className="ml-3 text-lg font-bold" />
+                  </button>
+                </div>
               )}
             </div>
           </div>
         )}
 
-        {/* get user academic cirriculum pdf*/}
+        {/* get user academic curriculum pdf*/}
 
         <div className="flex flex-wrap -mx-3 mt-6">
           <div className="w-full px-3  flex items-center justify-center gap-4 ">
             {step > 0 && (
               <button
-                className="btn text-blue-600  border-2  border-blue-600  w-52 "
+                className="btn text-blue-600  border-2  border-blue-600  w-55"
                 onClick={() => {
                   handlePrev();
                 }}
@@ -618,16 +707,16 @@ export default function SignUp() {
                 Previous
               </button>
             )}
-            {step !== 6 ? (
+            {step !== 7 ? (
               <button
-                className="btn text-white bg-blue-600  w-52 "
+                className="btn text-white bg-blue-600  w-55"
                 onClick={() => handleNext()}
               >
-                { step === 1 ? Proceed : Next }
+                {step === 1 ? "I don't have a resume" : "Next"}
               </button>
             ) : (
               <button
-                className="btn text-white bg-blue-600  w-52 "
+                className="btn text-white bg-blue-600  w-55"
                 onClick={() => {
                   handleFinish();
                 }}
