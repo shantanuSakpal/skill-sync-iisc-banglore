@@ -43,9 +43,9 @@
   background-color: #48bb78; /* Green for completed step */
 }
 
-.complete p {
-  color: #fff;
-}
+/* .complete p {
+  /* color: #fff; */
+/* } */ 
 
 .complete:not(:first-child):before,
 .active:not(:first-child):before {
