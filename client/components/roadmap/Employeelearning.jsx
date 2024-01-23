@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { db } from "../firebase.config.jsx";
+import { db } from "../../config/firebase-config";
 import { collection, doc, getDoc } from "firebase/firestore";
 import axios from 'axios';
 
@@ -12,7 +12,7 @@ const EmployeeLearning = () => {
   const [referenceLinks, setReferenceLinks] = useState(null)
 
   useEffect(() => {
-    console.log("sdfasdfasdfasd")
+    
     const fetchTask = async () => {
       try {
         const taskRef = doc(db, "Tasks", taskid);

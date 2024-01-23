@@ -1,0 +1,120 @@
+{
+    "projects": [
+        {
+            "id": "P1234",
+            "title": "React Counter Component",
+            "description": "Complete the React component to display the text \"Logged In\" if the isAuth props variable is true, otherwise show the text \"Guest User\".",
+            "difficulty": "Beginner",
+            "tags": [
+                "React",
+                "Web Development",
+                "Software Development"
+            ],
+            "overview": "Write a React component called Counter that meets the following criteria: Renders a number variable count initialized to 0. Displays the count variable value inside an <h1> tag. Increments count by 1 when clicking a button. Decrements count by 1 when clicking another button.",
+            "objective": "Demonstrate understanding of: Rendering dynamic data using { }, Managing state with the useState hook, Event handling to trigger state updates, Re-rendering UI on state change.",
+            "boilerplate": "",
+            "iscode": true,
+            "time_required": 0.5,
+            "solutions": [
+                "S12345"
+            ]
+        },
+        {
+            "id": "P5678",
+            "title": "Node.js RESTful API",
+            "description": "Build a simple RESTful API using Node.js and Express. Implement CRUD operations (Create, Read, Update, Delete) for a resource, such as 'tasks' or 'notes'.",
+            "difficulty": "Intermediate",
+            "tags": [
+                "Node.js",
+                "Express",
+                "RESTful API",
+                "Backend Development"
+            ],
+            "overview": "Create a RESTful API with endpoints for creating, reading, updating, and deleting resource items. Use Express to handle routing and implement middleware for error handling and validation.",
+            "objective": "Demonstrate understanding of: Creating RESTful APIs with Node.js and Express, Handling HTTP methods for CRUD operations, Middleware for error handling and validation.",
+            "boilerplate": "",
+            "iscode": true,
+            "time_required": 2
+        },
+        {
+            "id": "P91011",
+            "title": "React Native Mobile App",
+            "description": "Develop a cross-platform mobile app using React Native. The app should have at least two screens and include navigation between them.",
+            "difficulty": "Intermediate",
+            "tags": [
+                "React Native",
+                "Mobile Development",
+                "Cross-Platform"
+            ],
+            "overview": "Build a mobile app with React Native, utilizing components for UI and navigation. Demonstrate the ability to create cross-platform applications that work on both iOS and Android.",
+            "objective": "Demonstrate understanding of: React Native development, Cross-platform mobile app development, Navigation in React Native.",
+            "boilerplate": "",
+            "iscode": true,
+            "time_required": 3
+        },
+        {
+            "id": "P121314",
+            "title": "Python Web Scraping",
+            "description": "Create a Python script to scrape data from a website. Use libraries like BeautifulSoup and requests to extract information and save it in a structured format.",
+            "difficulty": "Intermediate",
+            "tags": [
+                "Python",
+                "Web Scraping",
+                "Data Extraction"
+            ],
+            "overview": "Write a Python script to extract data from a website. Utilize web scraping libraries like BeautifulSoup and requests to navigate and extract information. Save the data in a structured format.",
+            "objective": "Demonstrate understanding of: Python programming, Web scraping techniques, Use of libraries like BeautifulSoup and requests.",
+            "boilerplate": "",
+            "iscode": true,
+            "time_required": 2.5
+        },
+        {
+            "id": "P151617",
+            "title": "Vue.js Interactive Web App",
+            "description": "Build an interactive web application using Vue.js. Implement features like dynamic data rendering, user input forms, and real-time updates.",
+            "difficulty": "Advanced",
+            "tags": [
+                "Vue.js",
+                "Web Development",
+                "Frontend"
+            ],
+            "overview": "Develop a web app with Vue.js, incorporating dynamic data rendering, user input forms, and real-time updates. Showcase the ability to create interactive user interfaces.",
+            "objective": "Demonstrate understanding of: Vue.js components, Dynamic data rendering, User input forms, Real-time updates in a frontend application.",
+            "boilerplate": "",
+            "iscode": true,
+            "time_required": 3
+        },
+        {
+            "id": "P181920",
+            "title": "Django Blog Application",
+            "description": "Create a blog application using Django. Implement features like user authentication, CRUD operations for blog posts, and a responsive design.",
+            "difficulty": "Intermediate",
+            "tags": [
+                "Django",
+                "Web Development",
+                "Backend Development"
+            ],
+            "overview": "Build a blog application with Django, incorporating user authentication, CRUD operations for blog posts, and a responsive design. Showcase proficiency in Django web development.",
+            "objective": "Demonstrate understanding of: Django framework, User authentication, CRUD operations, Responsive design.",
+            "boilerplate": "",
+            "iscode": true,
+            "time_required": 3.5
+        },
+        {
+            "id": "P212223",
+            "title": "Machine Learning with Python",
+            "description": "Develop a machine learning model using Python. Choose a dataset, preprocess the data, train a model, and evaluate its performance.",
+            "difficulty": "Advanced",
+            "tags": [
+                "Python",
+                "Machine Learning",
+                "Data Science"
+            ],
+            "overview": "Create a machine learning model using Python. Select a dataset, preprocess the data, choose a suitable algorithm, train the model, and evaluate its performance. Demonstrate proficiency in machine learning concepts.",
+            "objective": "Demonstrate understanding of: Machine learning concepts, Python for machine learning, Model training and evaluation.",
+            "boilerplate": "",
+            "iscode": true,
+            "time_required": 4.5
+        }
+    ]
+}
