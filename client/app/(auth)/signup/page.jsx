@@ -1,11 +1,12 @@
 "use client";
 import router from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import data from "@/data/data.json";
 import { auth, db, storage } from "@/config/firebase-config";
 import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
+import { UserAuth } from "@/context/AuthContext.js"
 import {
   ref,
   getDownloadURL,
@@ -13,6 +14,8 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import getRoadmaps from "@/config/gpt-openai-config";
+import RoadmapShortCard from "@/components/RoadmapShortCard";
 // import { url } from "inspector";
 
 export default function SignUp() {
@@ -20,15 +23,35 @@ export default function SignUp() {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isFileSelected, setIsFileSelected] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [roadmaps, setRoadmaps] = useState([
+    
+  ]);
+  const [formData, setFormData] = useState({
+    uid: "",
+    name: "",
+    email: "",
+    industries: [],
+    passions: [],
+    jobTypes: [],
+    skills: [],
+    roadmapDuration: null,
+    curriculumPdf: null,
+    resumePdf: null,
+  });
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
   const router = useRouter();
   const industryCategories = data.industryCategories;
   const passions = data.passions;
   const jobs = data.jobs;
   const skills = data.skills;
   const roadmapDuration = data.duration;
+  const { user, createUser } = UserAuth();
 
   const [searchTerm, setSearchTerm] = useState("");
-  console.log(searchTerm);
+  // console.log(searchTerm);
 
   const filteredIndustries = industryCategories.filter((industry) =>
     industry.toLowerCase().includes(searchTerm.toLowerCase())
@@ -102,8 +125,8 @@ export default function SignUp() {
                 // the "skills" attribute (which is an array) in the formData should be set to the "skills" attribute from the json[0]
                 return {
                   ...prevData,
-                  industries: json[0].industryCategories,
-                  jobTypes: json[0].jobs,
+                  // industries: json[0].industryCategories,
+                  // jobTypes: json[0].jobs,
                   skills: json[0].skills,
                 };
               });
@@ -125,19 +148,23 @@ export default function SignUp() {
   const handleCheckboxChange = (value) => {
     if (step === 2) {
       //industry
-      console.log(formData);
       if (formData.industries.includes(value)) {
-        //remove
+        // remove
         setFormData((prevData) => ({
           ...prevData,
           industries: prevData.industries.filter((item) => item !== value),
         }));
       } else {
-        //add
-        setFormData((prevData) => ({
-          ...prevData,
-          industries: [...prevData.industries, value],
-        }));
+        // add
+        if (formData.industries.length < 3) {
+          setFormData((prevData) => ({
+            ...prevData,
+            industries: [...prevData.industries, value],
+          }));
+        } else {
+          // handle maximum selection limit
+          console.log("Maximum selection limit reached.");
+        }
       }
     } else if (step === 3) {
       //passion
@@ -149,10 +176,15 @@ export default function SignUp() {
         }));
       } else {
         //add
-        setFormData((prevData) => ({
-          ...prevData,
-          passions: [...prevData.passions, value],
-        }));
+        if (formData.passions.length < 3) {
+          setFormData((prevData) => ({
+            ...prevData,
+            passions: [...prevData.passions, value],
+          }));
+        } else {
+          // handle maximum selection limit
+          console.log("Maximum selection limit reached.");
+        }
       }
     } else if (step === 4) {
       //job type
@@ -164,10 +196,15 @@ export default function SignUp() {
         }));
       } else {
         //add
-        setFormData((prevData) => ({
-          ...prevData,
-          jobTypes: [...prevData.jobTypes, value],
-        }));
+        if (formData.jobTypes.length < 3) {
+          setFormData((prevData) => ({
+            ...prevData,
+            jobTypes: [...prevData.jobTypes, value],
+          }));
+        } else {
+          // handle maximum selection limit
+          console.log("Maximum selection limit reached.");
+        }
       }
     } else if (step === 5) {
       //skills
@@ -226,52 +263,93 @@ export default function SignUp() {
     setUploadProgress(0);
   };
 
-  const handleFinish = () => {
+  const handleSignUp = async () => {
+    // password checker
+    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+      return alert("Passwords do not match.");
+    }
+    try {
+      const userCredential = await createUser(
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+      const { uid } = userCredential.user;
+      setStep(step + 1);
+      console.log(userCredential);
+      setFormData((prev) => ({ ...prev, uid: uid, name: nameRef.current.value, email: emailRef.current.value }));
+    } catch (err) {
+      console.log(err);
+    }
+    // setStep(step + 1);
+  }
+
+  const handleFinish = async () => {
     //log the form data, the form data is being stored in formData
+    // setFormData((prevData) => ({ ...prevData, uid: user.uid }));
+
     console.log("formData,", formData);
-    // store the formData object in the Loccal Strorage
-    localStorage.setItem("formData", JSON.stringify(formData));
-    /*e.g. 
-    formData = {
-      "name": "",
-      "email": "",
-      "industries": [],
-      "passions": [],
-      "jobTypes": [],
-      "skills": [],
-      "curriculumPdf": "firebase link to the pdf",
-      "resumePdf": "firebase link to the pdf"
-    } */
+    //increase step count
+    setStep(step + 1);
+    setLoading(true);
 
-    //send the form data to the backend
+    localStorage.setItem("formData", formData);
 
-    // fetch("http://localhost:5000/suggest_roadmaps", {
-    //   method: "POST",
-    //   body: JSON.stringify(formData),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // })
-    //   .then((res) => {
-    //     //redirect to career compass
-    //      router.push("/career-compass");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  };
+    // save the formData to the firestore database 
+    const docRef = await addDoc(collection(db, "user_bio"), formData);
+    console.log("Document written with ID: ", docRef.id);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    industries: [],
-    passions: [],
-    jobTypes: [],
-    skills: [],
-    roadmapDuration: null,
-    curriculumPdf: null,
-    resumePdf: null,
-  });
+
+    const response = await getRoadmaps(
+      formData.skills,
+      formData.jobTypes,
+      formData.industries,
+      formData.passions,
+      formData.roadmapDuration
+    );
+
+    // Convert the response string to an object
+    const responseObject = JSON.parse(response);
+    setRoadmaps(responseObject.roadmaps)
+    /* roadmaps =  [
+        {
+            "title": "Software Engineer",
+            "overview": "This roadmap will focus on preparing you for a career as a Software Engineer with a strong foundation in full-stack development and cloud services.",
+            "duration": "10-12 months",
+            "topics": [
+                "Front-end Development with React.js and Next.js",
+                "Back-end Development with Node.js and Flask",
+                "Cloud Services with AWS",
+                "Version Control with Git and GitHub",
+                "Database Management with MongoDB",
+                "Software Development Best Practices"
+            ],
+            "learning_objectives": [
+                "Developing responsive and dynamic web applications using React.js and Next.js",
+                "Building scalable server-side applications with Node.js and Flask",
+                "Deploying applications and managing resources on AWS",
+                "Employing effective version control and collaboration with Git and GitHub",
+                "Designing and implementing databases using MongoDB",
+                "Understanding software development methodologies and best practices"
+            ],
+            "prerequisites": [
+                "Basic programming knowledge",
+                "Understanding of web development concepts"
+            ],
+            "sample_courses": [
+                "Full-Stack Web Development with React Specialization on Coursera",
+                "AWS Certified Developer - Associate on Udemy",
+                "Version Control with Git on Udacity"
+            ]
+        },...
+        
+    ] */
+    //store the response object into the localStorage
+    localStorage.setItem("roadmapOptions", responseObject);
+    console.log(responseObject.roadmaps);
+    setLoading(false);
+  }
+
+
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -307,6 +385,7 @@ export default function SignUp() {
                       placeholder="Enter your name"
                       onChange={handleInputChange}
                       value={formData.name}
+                      ref={nameRef}
                     />
                   </div>
                 </div>
@@ -326,6 +405,41 @@ export default function SignUp() {
                       placeholder="Enter your email address"
                       onChange={handleInputChange}
                       value={formData.email}
+                      ref={emailRef}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-4">
+                  <div className="w-full px-3">
+                    <label
+                      className="block text-gray-800 text-sm font-medium mb-1"
+                      htmlFor="email"
+                    >
+                      Password
+                    </label>
+                    <input
+                      id="password"
+                      type="password"
+                      className="form-input w-full text-gray-800"
+                      placeholder="Enter your password"
+                      ref={passwordRef}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-4">
+                  <div className="w-full px-3">
+                    <label
+                      className="block text-gray-800 text-sm font-medium mb-1"
+                      htmlFor="email"
+                    >
+                      Confirm Password
+                    </label>
+                    <input
+                      id="password"
+                      type="password"
+                      className="form-input w-full text-gray-800"
+                      placeholder="Re-enter your password"
+                      ref={confirmPasswordRef}
                     />
                   </div>
                 </div>
@@ -370,9 +484,8 @@ export default function SignUp() {
               {isFileSelected && (
                 <div className={"flex items-center justify-center"}>
                   <button
-                    className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${
-                      uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
-                    }`}
+                    className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
+                      }`}
                     disabled={uploadProgress > 0 || loading}
                     onClick={() => {
                       handleUploadFile(formData.resumePdf, "resumePdf");
@@ -684,9 +797,8 @@ export default function SignUp() {
               {isFileSelected && (
                 <div className={"flex items-center justify-center"}>
                   <button
-                    className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${
-                      uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
-                    }`}
+                    className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
+                      }`}
                     disabled={uploadProgress > 0}
                     onClick={() =>
                       handleUploadFile(formData.curriculumPdf, "curriculumPdf")
@@ -701,11 +813,37 @@ export default function SignUp() {
           </div>
         )}
 
+        {step === 8 && (
+          loading ? (
+            <div role="status" className="w-full flex flex-col gap-10 justify-center p-10">
+              <svg aria-hidden="true" className="w-24 h-24 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600 mx-auto" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
+                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
+              </svg>
+              <span className="text-center font-bold text-2xl">Generating roadmaps...</span>
+            </div>
+          ) : (
+            <div className="  pb-3 ">
+              <div className="w-full p-5 flex flex-col gap-5">
+                <div className="text-center w-full text-2xl font-bold">Choose from these roadmaps </div>
+                {
+                  roadmaps?.map((roadmap, index) => (
+                    <RoadmapShortCard roadmap={roadmap} index={index} />
+
+                  ))
+                }
+              </div>
+            </div>
+
+          )
+        )
+        }
+
         {/* get user academic curriculum pdf*/}
 
         <div className="flex flex-wrap -mx-3 mt-6">
           <div className="w-full px-3  flex items-center justify-center gap-4 ">
-            {step > 0 && (
+            {step > 0 && step !== 8 && (
               <button
                 className="btn text-blue-600  border-2  border-blue-600  w-55"
                 onClick={() => {
@@ -715,23 +853,36 @@ export default function SignUp() {
                 Previous
               </button>
             )}
-            {step !== 7 ? (
-              <button
-                className="btn text-white bg-blue-600  w-55"
-                onClick={() => handleNext()}
-              >
-                {step === 1 ? "I don't have a resume" : "Next"}
-              </button>
-            ) : (
-              <button
-                className="btn text-white bg-blue-600  w-55"
-                onClick={() => {
-                  handleFinish();
-                }}
-              >
-                Finish
-              </button>
-            )}
+            {
+              step === 0 ? (
+                <button
+                  className="btn text-white bg-blue-600  w-55"
+                  onClick={handleSignUp}
+                >
+                  Sign me Up !
+                </button>
+              ):(
+                step === 7 ? (
+                  <button
+                  className="btn text-white bg-blue-600  w-55"
+                  onClick={() => {
+                    handleFinish();
+                  }}
+                >
+                  Generate roadmaps
+                </button>)
+                :(
+                  step<8 && (
+                    <button
+                  className="btn text-white bg-blue-600  w-55"
+                  onClick={() => handleNext()}
+                >
+                  {step === 1 ? "I don't have a resume" : "Next"}
+                </button>
+                  )
+                
+                )
+                )}
           </div>
         </div>
         <div className="text-gray-600 text-center mt-6">
