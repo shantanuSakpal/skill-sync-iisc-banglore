@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import data from "@/data/data.json";
 import { auth, db, storage } from "@/config/firebase-config";
 import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
-import { UserAuth } from "@/context/AuthContext.js"
+import { UserAuth } from "@/context/AuthContext.js";
 import {
   ref,
   getDownloadURL,
@@ -21,7 +21,7 @@ export default function SignUp() {
   const [step, setStep] = useState(0);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isFileSelected, setIsFileSelected] = useState(false);
-  const [loading, setLoading] = useState(false);  
+  const [loading, setLoading] = useState(false);
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -260,21 +260,26 @@ export default function SignUp() {
       const { uid } = userCredential.user;
       setStep(step + 1);
       console.log(userCredential);
-      setFormData((prev) => ({ ...prev, uid: uid, name: nameRef.current.value, email: emailRef.current.value }));
+      setFormData((prev) => ({
+        ...prev,
+        uid: uid,
+        name: nameRef.current.value,
+        email: emailRef.current.value,
+      }));
     } catch (err) {
       console.log(err);
     }
     // setStep(step + 1);
-  }
+  };
 
   const handleFinish = async () => {
     //log the form data, the form data is being stored in formData
-    // setFormData((prevData) => ({ ...prevData, uid: user.uid }));
+    setFormData((prevData) => ({ ...prevData, uid: user.uid }));
     console.log("formData,", formData);
 
     localStorage.setItem("formData", formData);
 
-    // save the formData to the firestore database 
+    // save the formData to the firestore database
     const docRef = await addDoc(collection(db, "user_bio"), formData);
     console.log("Document written with ID: ", docRef.id);
 
@@ -292,8 +297,7 @@ export default function SignUp() {
     //store the response object into the localStorage
     localStorage.setItem("roadmapOptions", responseObject);
     console.log(responseObject);
-
-  }
+  };
 
   const [formData, setFormData] = useState({
     uid: "",
@@ -786,32 +790,30 @@ export default function SignUp() {
                 Previous
               </button>
             )}
-            {
-              step === 0 ? (
-                <button
-                  className="btn text-white bg-blue-600  w-55"
-                  onClick={handleSignUp}
-                >
-                  Sign me Up !
-                </button>
-              )
-                : step !== 7 ? (
-                  <button
-                    className="btn text-white bg-blue-600  w-55"
-                    onClick={() => handleNext()}
-                  >
-                    {step === 1 ? "I don't have a resume" : "Next"}
-                  </button>
-                ) : (
-                  <button
-                    className="btn text-white bg-blue-600  w-55"
-                    onClick={() => {
-                      handleFinish();
-                    }}
-                  >
-                    Finish
-                  </button>
-                )}
+            {step === 0 ? (
+              <button
+                className="btn text-white bg-blue-600  w-55"
+                onClick={handleSignUp}
+              >
+                Sign me Up !
+              </button>
+            ) : step !== 7 ? (
+              <button
+                className="btn text-white bg-blue-600  w-55"
+                onClick={() => handleNext()}
+              >
+                {step === 1 ? "I don't have a resume" : "Next"}
+              </button>
+            ) : (
+              <button
+                className="btn text-white bg-blue-600  w-55"
+                onClick={() => {
+                  handleFinish();
+                }}
+              >
+                Finish
+              </button>
+            )}
           </div>
         </div>
         <div className="text-gray-600 text-center mt-6">

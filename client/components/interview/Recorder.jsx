@@ -39,9 +39,9 @@ export default function Recorder({
     startRecording: startVideoRecording,
     stopRecording: stopVideoRecording,
     mediaBlobUrl: videoMediaBlobUrl,
-  } = useReactMediaRecorder({ audio: false, video: true });
+  } = useReactMediaRecorder({ audio: false, video: true, type: "video/webm" });
 
-  const handleMediaRecording = () => {
+  const handleMediaRecording = async () => {
     if (!isAudioRecording && !isVideoRecording) {
       startAudioRecording();
       startVideoRecording();
@@ -55,16 +55,18 @@ export default function Recorder({
       setIsAudioRecording(false);
       setIsVideoRecording(false);
 
+      // Convert video Blob to WebM format
+
       // Pass transcript and video URL to the parent component
       setTranscript(transcript);
-      setVideoUrl(videoMediaBlobUrl);
+      setVideoUrl(URL.createObjectURL(videoMediaBlobUrl));
 
       handleNextQuestion(transcript, videoMediaBlobUrl);
     }
   };
 
   const sendMediaToFirebase = (mediaBlobUrl) => {
-    // Code to send audio or video to firebase
+    // Code to se nd video to firebase
   };
 
   return (
@@ -105,9 +107,9 @@ export default function Recorder({
         <FaRegStopCircle />
       </button>
 
-      <div>
+      {/* <div>
         <audio src={audioMediaBlobUrl} controls autoPlay loop />
-      </div>
+      </div> */}
 
       <div>
         <video src={videoMediaBlobUrl} controls autoPlay loop />
