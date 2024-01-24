@@ -12,29 +12,13 @@
             ],
             "overview": "Write a React component called Counter that meets the following criteria: Renders a number variable count initialized to 0. Displays the count variable value inside an <h1> tag. Increments count by 1 when clicking a button. Decrements count by 1 when clicking another button.",
             "objective": "Demonstrate understanding of: Rendering dynamic data using { }, Managing state with the useState hook, Event handling to trigger state updates, Re-rendering UI on state change.",
-            "boilerplate": "",
+            "boilerplate": "// Boilerplate code for React Counter Component\n\nimport React, { useState } from 'react';\n\nconst Counter = ({ isAuth }) => {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div>\n      <h1>{isAuth ? 'Logged In' : 'Guest User'}</h1>\n      <p>Count: {count}</p>\n      <button onClick={() => setCount(count + 1)}>Increment</button>\n      <button onClick={() => setCount(count - 1)}>Decrement</button>\n    </div>\n  );\n};\n\nexport default Counter;",
             "iscode": true,
             "time_required": 0.5,
             "solutions": [
                 "S12345"
-            ]
-        },
-        {
-            "id": "P5678",
-            "title": "Node.js RESTful API",
-            "description": "Build a simple RESTful API using Node.js and Express. Implement CRUD operations (Create, Read, Update, Delete) for a resource, such as 'tasks' or 'notes'.",
-            "difficulty": "Intermediate",
-            "tags": [
-                "Node.js",
-                "Express",
-                "RESTful API",
-                "Backend Development"
             ],
-            "overview": "Create a RESTful API with endpoints for creating, reading, updating, and deleting resource items. Use Express to handle routing and implement middleware for error handling and validation.",
-            "objective": "Demonstrate understanding of: Creating RESTful APIs with Node.js and Express, Handling HTTP methods for CRUD operations, Middleware for error handling and validation.",
-            "boilerplate": "",
-            "iscode": true,
-            "time_required": 2
+            "language": "JavaScript"
         },
         {
             "id": "P91011",
@@ -48,9 +32,10 @@
             ],
             "overview": "Build a mobile app with React Native, utilizing components for UI and navigation. Demonstrate the ability to create cross-platform applications that work on both iOS and Android.",
             "objective": "Demonstrate understanding of: React Native development, Cross-platform mobile app development, Navigation in React Native.",
-            "boilerplate": "",
+            "boilerplate": "// Boilerplate code for React Native Mobile App\n\n// Import necessary modules from React Native\nimport React from 'react';\nimport { NavigationContainer } from '@react-navigation/native';\nimport { createStackNavigator } from '@react-navigation/stack';\n\n// Import your custom screens\nimport Screen1 from './Screen1';\nimport Screen2 from './Screen2';\n\n// Create a stack navigator\nconst Stack = createStackNavigator();\n\n// Define your main navigation component\nconst AppNavigator = () => {\n  return (\n    <NavigationContainer>\n      <Stack.Navigator initialRouteName=\"Screen1\">\n        <Stack.Screen name=\"Screen1\" component={Screen1} />\n        <Stack.Screen name=\"Screen2\" component={Screen2} />\n      </Stack.Navigator>\n    </NavigationContainer>\n  );\n};\n\nexport default AppNavigator;",
             "iscode": true,
-            "time_required": 3
+            "time_required": 3,
+            "language": "JavaScript"
         },
         {
             "id": "P121314",
@@ -64,9 +49,10 @@
             ],
             "overview": "Write a Python script to extract data from a website. Utilize web scraping libraries like BeautifulSoup and requests to navigate and extract information. Save the data in a structured format.",
             "objective": "Demonstrate understanding of: Python programming, Web scraping techniques, Use of libraries like BeautifulSoup and requests.",
-            "boilerplate": "",
+            "boilerplate": "# Boilerplate code for Python Web Scraping\n\nimport requests\nfrom bs4 import BeautifulSoup\n\n# Function to scrape data from a website\ndef scrape_website(url):\n    # Make a request to the website\n    response = requests.get(url)\n\n    # Check if the request was successful\n    if response.status_code == 200:\n        # Parse the HTML content\n        soup = BeautifulSoup(response.text, 'html.parser')\n\n        # Add your scraping logic here\n\n    else:\n        print('Failed to retrieve the webpage')\n\n# Example usage\nwebsite_url = 'https://example.com'\nscrape_website(website_url)",
             "iscode": true,
-            "time_required": 2.5
+            "time_required": 2.5,
+            "language": "Python"
         },
         {
             "id": "P151617",
@@ -96,9 +82,10 @@
             ],
             "overview": "Build a blog application with Django, incorporating user authentication, CRUD operations for blog posts, and a responsive design. Showcase proficiency in Django web development.",
             "objective": "Demonstrate understanding of: Django framework, User authentication, CRUD operations, Responsive design.",
-            "boilerplate": "",
+            "boilerplate": "// Boilerplate code for Django Blog Application\n\n# models.py\nfrom django.db import models\n\nclass BlogPost(models.Model):\n    title = models.CharField(max_length=255)\n    content = models.TextField()\n    # Add more fields as needed\n\n# views.py\nfrom django.shortcuts import render, get_object_or_404\nfrom .models import BlogPost\n\n# Add your views for CRUD operations\n\n# urls.py\nfrom django.urls import path\nfrom . import views\n\nurlpatterns = [\n    # Define your URL patterns\n]\n\n# settings.py\n# Add Django settings for authentication and other configurations\n",
             "iscode": true,
-            "time_required": 3.5
+            "time_required": 3.5,
+            "language": "Python (Django)"
         },
         {
             "id": "P212223",
