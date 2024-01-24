@@ -45,3 +45,9 @@
   outline: none !important;
   box-shadow: 0 0 0 1px #e2e8f0 !important;
 }
+
+.horizontal {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}

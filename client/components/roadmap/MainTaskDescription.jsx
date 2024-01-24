@@ -78,8 +78,6 @@ export default function MainTaskDescription({ phase }) {
     //set color of border of time line container
     timelineItemBorderRadius: "10px",
     cardBorderColor: "gray",
-    //set backgroud color of selected card
-    cardColor: "#a55dff",
   };
 
   //find the index of first subtask that is not done

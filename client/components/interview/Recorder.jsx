@@ -10,8 +10,9 @@ import SpeechRecognition, {
 
 export default function Recorder({
   handleNextQuestion,
-  questions,
-  currentQuestionIndex,
+
+  setTranscript,
+  setVideoUrl,
 }) {
   const [isAudioRecording, setIsAudioRecording] = useState(false);
   const [isVideoRecording, setIsVideoRecording] = useState(false);
@@ -53,12 +54,12 @@ export default function Recorder({
       stopListening();
       setIsAudioRecording(false);
       setIsVideoRecording(false);
-      sendMediaToFirebase({
-        audioMediaBlobUrl: audioMediaBlobUrl,
-        videoMediaBlobUrl: videoMediaBlobUrl,
-      });
 
-      handleNextQuestion();
+      // Pass transcript and video URL to the parent component
+      setTranscript(transcript);
+      setVideoUrl(videoMediaBlobUrl);
+
+      handleNextQuestion(transcript, videoMediaBlobUrl);
     }
   };
 

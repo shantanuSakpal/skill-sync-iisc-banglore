@@ -5,9 +5,15 @@ import AudioRecorder from "./AudioRecorder";
 import SpeechToText from "./SpeechToText";
 export default function AfterInterviewStart({ questions }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [transcript, setTranscript] = useState("");
+  const [videoUrl, setVideoUrl] = useState("");
 
   const handleNextQuestion = () => {
     setCurrentQuestionIndex(currentQuestionIndex + 1);
+    console.log("transcript", transcript);
+    console.log("videoUrl", videoUrl);
+    setTranscript("");
+    setVideoUrl("");
   };
 
   return (
@@ -29,6 +35,8 @@ export default function AfterInterviewStart({ questions }) {
               handleNextQuestion={handleNextQuestion}
               questions={questions}
               currentQuestionIndex={currentQuestionIndex}
+              setTranscript={setTranscript}
+              setVideoUrl={setVideoUrl}
             />
           </div>
         </div>

@@ -4,12 +4,6 @@ import React, { useState } from "react";
 import AfterInterviewStart from "../../components/interview/AfterInterviewStart";
 import BeforeInterviewStart from "../../components/interview/BeforeInterviewStart";
 import UserVideoContainer from "@/components/interview/UserVideoContainer";
-("use client");
-import React, { useState } from "react";
-
-import AfterInterviewStart from "../../components/interview/AfterInterviewStart";
-import BeforeInterviewStart from "../../components/interview/BeforeInterviewStart";
-import UserVideoContainer from "@/components/interview/UserVideoContainer";
 
 export default function InterviewAce() {
   const [isInterviewStarted, setIsInterviewStarted] = useState(false);
