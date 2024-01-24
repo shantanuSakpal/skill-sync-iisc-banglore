@@ -10,6 +10,9 @@ export default function DefaultLayout({ children }) {
   return (
     <>
       <main className="grow ">{children}</main>
+      {typeof window !== "undefined" && (
+        <main className="grow  ">{children}</main>
+      )}
 
       <Footer />
     </>

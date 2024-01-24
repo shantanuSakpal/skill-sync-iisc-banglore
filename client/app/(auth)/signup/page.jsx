@@ -1,5 +1,5 @@
 "use client";
-
+import router from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
@@ -21,6 +21,7 @@ export default function SignUp() {
   const [step, setStep] = useState(0);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isFileSelected, setIsFileSelected] = useState(false);
+  const [loading, setLoading] = useState(false);  
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -34,6 +35,7 @@ export default function SignUp() {
   const { user, createUser } = UserAuth();
 
   const [searchTerm, setSearchTerm] = useState("");
+  console.log(searchTerm);
 
   const filteredIndustries = industryCategories.filter((industry) =>
     industry.toLowerCase().includes(searchTerm.toLowerCase())
@@ -61,6 +63,7 @@ export default function SignUp() {
 
   const handleUploadFile = async (file, field) => {
     if (file) {
+      setLoading(true);
       setUploadProgress(0);
       setIsFileSelected(true);
 
@@ -90,6 +93,7 @@ export default function SignUp() {
             body: JSON.stringify({ url: downloadURL }),
             headers: {
               "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
             },
           })
             .then((res) => res.json())
@@ -98,17 +102,18 @@ export default function SignUp() {
               // .then((docRef) => {
               //   console.log("Document written with ID: ", docRef.id);
               // })
-              // store json into localStorage 
+              // store json into localStorage
               // localStorage.setItem("user_bio", json[0]);
+              console.log(json[0]);
               setFormData((prevData) => {
-                // the "skills" attribute (which is an array) in the formData should be set to the "skills" attribute from the json[0] 
+                // the "skills" attribute (which is an array) in the formData should be set to the "skills" attribute from the json[0]
                 return {
                   ...prevData,
                   // industries: json[0].industryCategories,
                   // jobTypes: json[0].jobs,
                   skills: json[0].skills,
-                }
-              })
+                };
+              });
               handleNext();
             })
             .catch((err) => {
@@ -126,7 +131,7 @@ export default function SignUp() {
 
   const handleCheckboxChange = (value) => {
     if (step === 2) {
-      // industry
+      //industry
       if (formData.industries.includes(value)) {
         // remove
         setFormData((prevData) => ({
@@ -436,12 +441,14 @@ export default function SignUp() {
               {isFileSelected && (
                 <div className={"flex items-center justify-center"}>
                   <button
-                    className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
-                      }`}
-                    disabled={uploadProgress > 0}
-                    onClick={() =>
-                      handleUploadFile(formData.resumePdf, "resumePdf")
-                    }
+                    className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${
+                      uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
+                    }`}
+                    disabled={uploadProgress > 0 || loading}
+                    onClick={() => {
+                      handleUploadFile(formData.resumePdf, "resumePdf");
+                      setLoading(true);
+                    }}
                   >
                     Upload{" "}
                     <IoCloudUploadOutline className="ml-3 text-lg font-bold" />
@@ -475,7 +482,7 @@ export default function SignUp() {
                       type="text"
                       className="form-input w-full mb-3"
                       placeholder="Type to search..."
-                      value={searchTerm}
+                      defaultValue={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     />
                     <div className="max-h-96 overflow-auto">
@@ -748,8 +755,9 @@ export default function SignUp() {
               {isFileSelected && (
                 <div className={"flex items-center justify-center"}>
                   <button
-                    className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
-                      }`}
+                    className={`btn py-2 px-10 bg-blue-600 text-white font-bold ${
+                      uploadProgress > 0 ? "cursor-not-allowed opacity-50" : ""
+                    }`}
                     disabled={uploadProgress > 0}
                     onClick={() =>
                       handleUploadFile(formData.curriculumPdf, "curriculumPdf")

@@ -1,6 +1,6 @@
-import './css/style.css'
-
-import { Inter } from 'next/font/google'
+import "./css/style.css";
+// import "regenerator-runtime/runtime";
+import { Inter } from "next/font/google";
 
 import Header from '@/components/ui/header'
 import { AuthContextProvider } from '../context/AuthContext'

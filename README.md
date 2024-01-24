@@ -22,4 +22,4 @@ Next, set up the backend:
 - For macOS/Linux: `source venv/bin/activate`
 
 4. Install the dependencies: `pip install -r requirements.txt`
-5. Start the backend server: `python run.py`
+5. Start the backend server: `python run.py` or `python test.py` to run the tests

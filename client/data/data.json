@@ -150,6 +150,7 @@
     {
       "id": "1",
       "name": "HTML",
+      "description": "Learn the basics of HTML and how to create forms. This will be the foundation of your web development journey.",
       "curriculum": [
         "Introduction to Web Development",
         "Understanding HTML",
@@ -159,36 +160,72 @@
       ],
       "materials": "Recommended Book: 'HTML and CSS: Design and Build Websites' by Jon Duckett",
       "projects": "redirect to project page with filter",
+      "date": "26th Jan - 5th Feb",
+      "done": true,
+      "tags": ["HTML", "Web Development"],
       "subtasks": [
         {
           "name": "Basic HTML Structure",
           "description": "Learn the basic structure of an HTML document.",
-          "curriculum": "Introduction to Web Development",
+          "curriculum": ["Introduction to Web Development", "demo topic"],
           "materials": "W3Schools - Basic HTML Structure",
           "projects": "redirect to project page, search for the project",
-          "done": false
+          "done": true,
+          "date": "20th Jan - 25th Jan",
+          "tags": ["HTML", "Web Development"]
         },
         {
           "name": "Important Tags",
           "description": "Explore essential HTML tags and their usage.",
-          "curriculum": "Understanding HTML",
+          "curriculum": ["Understanding HTML"],
           "materials": "MDN Web Docs - HTML Element Reference",
           "projects": "redirect to project page, search for the project",
-          "done": false
+          "done": true,
+          "date": "26th Jan - 31st Jan"
         },
         {
           "name": "IDs and Classes",
           "description": "Understand how to use IDs and classes in HTML elements.",
-          "curriculum": "HTML Tags and Elements",
+          "curriculum": ["HTML Tags and Elements"],
           "materials": "CSS-Tricks - IDs and Classes",
           "projects": "redirect to project page, search for the project",
-          "done": false
+          "done": false,
+          "date": "1st Feb - 5th Feb"
+        },
+        {
+          "name": "Basic HTML Structure",
+          "description": "Learn the basic structure of an HTML document.",
+          "curriculum": ["Introduction to Web Development", "demo topic"],
+          "materials": "W3Schools - Basic HTML Structure",
+          "projects": "redirect to project page, search for the project",
+          "done": true,
+          "date": "20th Jan - 25th Jan"
+        },
+        {
+          "name": "Important Tags",
+          "description": "Explore essential HTML tags and their usage.",
+          "curriculum": ["Understanding HTML"],
+          "materials": "MDN Web Docs - HTML Element Reference",
+          "projects": "redirect to project page, search for the project",
+          "done": true,
+          "date": "26th Jan - 31st Jan"
+        },
+        {
+          "name": "IDs and Classes",
+          "description": "Understand how to use IDs and classes in HTML elements.",
+          "curriculum": ["HTML Tags and Elements"],
+          "materials": "CSS-Tricks - IDs and Classes",
+          "projects": "redirect to project page, search for the project",
+          "done": false,
+          "date": "1st Feb - 5th Feb"
         }
       ]
     },
     {
       "id": "2",
       "name": "CSS",
+      "description": "Learn how to style your HTML elements with CSS. You will also learn about responsive web design.",
+      "done": false,
       "curriculum": [
         "Introduction to CSS",
         "CSS Selectors",
@@ -202,7 +239,7 @@
         {
           "name": "CSS Selectors",
           "description": "Learn different CSS selectors for styling elements.",
-          "curriculum": "CSS Selectors",
+          "curriculum": ["CSS Selectors"],
           "materials": "Mozilla Developer Network - CSS Selectors",
           "projects": "redirect to project page, search for the project",
           "done": false
@@ -210,7 +247,7 @@
         {
           "name": "Box Model",
           "description": "Understand the CSS box model and its properties.",
-          "curriculum": "Box Model",
+          "curriculum": ["Box Model"],
           "materials": "CSS-Tricks - CSS Box Model",
           "projects": "redirect to project page, search for the project",
           "done": false
@@ -218,7 +255,7 @@
         {
           "name": "Flexbox and Grid",
           "description": "Explore CSS Flexbox and Grid for layout design.",
-          "curriculum": "Flexbox and Grid",
+          "curriculum": ["Flexbox and Grid"],
           "materials": "CSS Tricks - A Complete Guide to Flexbox",
           "projects": "redirect to project page, search for the project",
           "done": false
@@ -235,13 +272,15 @@
         "Functions and Objects",
         "DOM Manipulation"
       ],
+      "description": "Learn the basics of JavaScript and how to manipulate the Document Object Model (DOM).",
+      "done": false,
       "materials": "Recommended Book: 'Eloquent JavaScript' by Marijn Haverbeke",
       "projects": "redirect to project page with filter",
       "subtasks": [
         {
           "name": "Variables and Data Types",
           "description": "Learn about variables and different data types in JavaScript.",
-          "curriculum": "Variables and Data Types",
+          "curriculum": ["Variables and Data Types"],
           "materials": "MDN Web Docs - JavaScript Basics",
           "projects": "redirect to project page, search for the project",
           "done": false
@@ -249,7 +288,7 @@
         {
           "name": "Control Flow and Loops",
           "description": "Understand how to control the flow of your JavaScript code.",
-          "curriculum": "Control Flow and Loops",
+          "curriculum": ["Control Flow and Loops"],
           "materials": "Mozilla Developer Network - JavaScript Loops",
           "projects": "redirect to project page, search for the project",
           "done": false
@@ -257,10 +296,56 @@
         {
           "name": "DOM Manipulation",
           "description": "Explore manipulating the Document Object Model (DOM) with JavaScript.",
-          "curriculum": "DOM Manipulation",
+          "curriculum": ["DOM Manipulation"],
           "materials": "W3Schools - JavaScript HTML DOM",
           "projects": "redirect to project page, search for the project",
           "done": false
+        }
+      ]
+    },
+    {
+      "id": "1",
+      "name": "React.js",
+      "description": "Learn how to build interactive user interfaces with React.js. You will also learn about state management with Redux.",
+      "curriculum": [
+        "Introduction to React.js",
+        "React Components",
+        "React Hooks",
+        "React Router",
+        "Redux"
+      ],
+      "materials": "Recommended Book: 'React Quickly' by Azat Mardan",
+      "projects": "redirect to project page with filter",
+      "date": "26th Jan - 5th Feb",
+      "done": false,
+      "tags": ["React.js", "Web Development"],
+      "subtasks": [
+        {
+          "name": "Basic HTML Structure",
+          "description": "Learn the basic structure of an HTML document.",
+          "curriculum": ["Introduction to Web Development", "demo topic"],
+          "materials": "W3Schools - Basic HTML Structure",
+          "projects": "redirect to project page, search for the project",
+          "done": false,
+          "date": "20th Jan - 25th Jan"
+        },
+        {
+          "name": "Important Tags",
+          "description": "Explore essential HTML tags and their usage.",
+          "curriculum": ["Understanding HTML"],
+          "materials": "MDN Web Docs - HTML Element Reference",
+          "projects": "redirect to project page, search for the project",
+          "done": false,
+          "date": "26th Jan - 31st Jan"
+        },
+        {
+          "name": "IDs and Classes",
+          "description": "Understand how to use IDs and classes in HTML elements.",
+          "curriculum": ["HTML Tags and Elements"],
+          "materials": "CSS-Tricks - IDs and Classes",
+          "projects": "redirect to project page, search for the project",
+          "done": false,
+          "date": "1st Feb - 5th Feb"
         }
       ]
     }
