@@ -101,10 +101,7 @@ def question_gen(resume: str, job_description: str, role: str) -> str:
         resume,
         job_description,
         role,
-        '''Analyze the user's answer and profile. Provide feedback on the content of the answer, highlighting areas where the user excelled and pointing out aspects that could be improved. Suggest additional information or details that the user could have included in their response based on their profile.
-Additionally, assess the user's confidence level during the answer. Comment on whether the user appeared confident, underconfident, unsure, or any other relevant observations. Offer specific suggestions on how the user can enhance their confidence and communication skills.Also consider users emotions when he answered the question.
-Output: Give entire response in first person (you)
-Generate a well-structured response that includes constructive feedback on the user's answer, suggestions for improvement, and insights into their confidence level. Aim to guide the user in presenting more effective and compelling responses in future interviews.Also give appropriate coorect answer for the the question asked."''',
+        """Generate a JSON structured list containing 5 creative, targeted interview questions tailored to evaluating this candidate's skills, experience, and fit for this role. Ensure questions draw from key qualifications and responsibilities described for this job, allowing the candidate to showcase relevant skills and potential contributions.""",
     ]
 
     response = model.generate_content(prompt_parts)
