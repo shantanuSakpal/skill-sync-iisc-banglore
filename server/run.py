@@ -10,11 +10,12 @@ from app import (
     analyze_emotions,
     process_video,
     gemenai_output,
+    question_gen,
 )
 from flask_cors import CORS
 import json
 from flask import Flask, request, jsonify
-from gemenai_output import gemenai_output
+
 
 app = Flask(__name__)
 
@@ -118,6 +119,20 @@ def generate_text_api():
 
         generated_text = gemenai_output(transcript, emotions, userdata, question)
         return jsonify({"generated_text": generated_text})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/generate_questions", methods=["POST"])
+def generate_questions_api():
+    try:
+        resume = request.json["resume"]
+        job_description = request.json["job_description"]
+        role = request.json["role"]
+
+        questions = question_gen(resume, job_description, role)
+        return jsonify({"questions": questions})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
