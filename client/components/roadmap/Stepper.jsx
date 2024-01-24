@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { TiTick } from "react-icons/ti";
 import "./stepper.css";
 import TaskComponent from "../../components/roadmap/TaskComponent";
-import EmployeeLearning from "../../components/roadmap/Employeelearning";
 
 
 const Stepper = ({ roadmap }) => {
@@ -57,12 +56,7 @@ const Stepper = ({ roadmap }) => {
       <TaskComponent taskData={roadmap[0]} />
 
       {/* suggested material to this */}
-      <div>
-        <div className="flex justify-center"><h2><strong>learn</strong></h2></div>
-        
-
-      </div>
-      <EmployeeLearning/>
+      
     </div>
   );
 };

@@ -1,12 +1,11 @@
 from flask import Flask, request, jsonify
 import json
 import os
+from flask_cors import CORS
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
-def home():
-    return "running"
+CORS(app)
 
 @app.route('/parse_resume', methods=['POST'])
 def test_resume_parser():
@@ -20,7 +19,6 @@ def test_resume_parser():
     print(json.dumps(resume_dictionary, indent=4))
 
     return json.dumps(resume_dictionary, indent=4)
-    # return jsonify({"result": "success"})
 
 @app.route('/generate_curriculum', methods=['POST'])
 def generate_curriculum_api():
@@ -34,7 +32,7 @@ def generate_curriculum_api():
             curriculum_content = json.load(json_file)
 
         # Return the content of curriculum.json
-        return jsonify({"result": curriculum_content})
+        return json.dumps(curriculum_content, indent=4)
 
     except Exception as e:
         return jsonify({"error": str(e)})

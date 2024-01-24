@@ -1,6 +1,7 @@
 import requests
 from PyPDF2 import PdfReader
 import os
+
 def extract_text_from_pdf(url, start_page=None, end_page=None):
     # Download PDF file
     response = requests.get(url)

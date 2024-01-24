@@ -5,7 +5,6 @@ from urllib.parse import unquote, urlparse
 from app import resume_parser, extract_text_from_pdf, generate_curriculum, generate_roadmap
 from flask_cors import CORS
 import json
-import json
 
 app = Flask(__name__)
 
@@ -28,9 +27,7 @@ def parse_resume():
   
   # Call the resume_parser function
   dictionary_with_extracted_parameters = resume_parser(filename)
-
-  # # Convert dictionary to JSON object
-  # extracted_parameters_json = json.dumps(dictionary_with_extracted_parameters)
+  
   # # Delete the file from the utils directory
   os.remove(os.path.join(os.path.abspath('./utils'), filename))
   
