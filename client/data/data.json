@@ -264,5 +264,103 @@
         }
       ]
     }
+  ], 
+  "roadmap_suggestions" : [
+    {
+      "title": "AI Researcher",
+      "overview": "Roadmap for becoming an AI Researcher with a focus on AI, Machine Learning, and Deep Learning technologies",
+      "duration": "6-12 months",
+      "topics": [
+        "Deep Learning Fundamentals",
+        "Neural Networks and PyTorch",
+        "Advanced Machine Learning Techniques"
+      ],
+      "learning_objectives": [
+        "Understand deep learning architectures and algorithms",
+        "Implement neural network models using PyTorch", 
+        "Explore advanced machine learning concepts and techniques"
+      ],
+      "prerequisites": [
+        "Solid understanding of Python, programming, and data structures",
+        "Familiarity with Next.js, React.js, Node.js for web development"
+      ],
+      "sample_courses": [
+        "Deep Learning Specialization on Coursera",
+        "Neural Networks and Deep Learning on Udemy",
+        "Advanced Machine Learning on edX"
+      ]
+    },
+    {
+      "title": "AI Researcher",
+      "overview": "Roadmap for becoming an AI Researcher with a focus on AI, Machine Learning, and Deep Learning technologies",
+      "duration": "6-12 months",
+      "topics": [
+        "Deep Learning Fundamentals",
+        "Neural Networks and PyTorch",
+        "Advanced Machine Learning Techniques"
+      ],
+      "learning_objectives": [
+        "Understand deep learning architectures and algorithms",
+        "Implement neural network models using PyTorch", 
+        "Explore advanced machine learning concepts and techniques"
+      ],
+      "prerequisites": [
+        "Solid understanding of Python, programming, and data structures",
+        "Familiarity with Next.js, React.js, Node.js for web development"
+      ],
+      "sample_courses": [
+        "Deep Learning Specialization on Coursera",
+        "Neural Networks and Deep Learning on Udemy",
+        "Advanced Machine Learning on edX"
+      ]
+    }, 
+    {
+      "title": "AI Researcher",
+      "overview": "Roadmap for becoming an AI Researcher with a focus on AI, Machine Learning, and Deep Learning technologies",
+      "duration": "6-12 months",
+      "topics": [
+        "Deep Learning Fundamentals",
+        "Neural Networks and PyTorch",
+        "Advanced Machine Learning Techniques"
+      ],
+      "learning_objectives": [
+        "Understand deep learning architectures and algorithms",
+        "Implement neural network models using PyTorch", 
+        "Explore advanced machine learning concepts and techniques"
+      ],
+      "prerequisites": [
+        "Solid understanding of Python, programming, and data structures",
+        "Familiarity with Next.js, React.js, Node.js for web development"
+      ],
+      "sample_courses": [
+        "Deep Learning Specialization on Coursera",
+        "Neural Networks and Deep Learning on Udemy",
+        "Advanced Machine Learning on edX"
+      ]
+    }, 
+    {
+      "title": "AI Researcher",
+      "overview": "Roadmap for becoming an AI Researcher with a focus on AI, Machine Learning, and Deep Learning technologies",
+      "duration": "6-12 months",
+      "topics": [
+        "Deep Learning Fundamentals",
+        "Neural Networks and PyTorch",
+        "Advanced Machine Learning Techniques"
+      ],
+      "learning_objectives": [
+        "Understand deep learning architectures and algorithms",
+        "Implement neural network models using PyTorch", 
+        "Explore advanced machine learning concepts and techniques"
+      ],
+      "prerequisites": [
+        "Solid understanding of Python, programming, and data structures",
+        "Familiarity with Next.js, React.js, Node.js for web development"
+      ],
+      "sample_courses": [
+        "Deep Learning Specialization on Coursera",
+        "Neural Networks and Deep Learning on Udemy",
+        "Advanced Machine Learning on edX"
+      ]
+    } 
   ]
 }

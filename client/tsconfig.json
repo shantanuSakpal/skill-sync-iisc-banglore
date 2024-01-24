@@ -30,6 +30,6 @@
     ".next/types/**/*.ts",
     "app/(default)/layout.jsx",
     "app/(default)/page.jsx"
-  ],
+, "app/(auth)/signin/page.jsx"  ],
   "exclude": ["node_modules"]
 }
