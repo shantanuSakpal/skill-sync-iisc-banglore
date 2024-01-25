@@ -1,7 +1,9 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 import requests
 from urllib.parse import unquote, urlparse
+from gtts import gTTS
+
 from app import (
     resume_parser,
     extract_text_from_pdf,
@@ -11,6 +13,7 @@ from app import (
     process_video,
     gemenai_output,
     question_gen,
+    solution_check,
 )
 from flask_cors import CORS
 import json
@@ -136,6 +139,36 @@ def generate_questions_api():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+@app.route("/sol_check", methods=["POST"])
+def generate_questions_api():
+    try:
+        user_sol = request.json["user_sol"]
+
+        check = solution_check(user_sol)
+        return jsonify({"check": check})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/text-to-speech", methods=["GET"])
+def text_to_speech():
+    text = request.args.get("text", "")
+    lang = request.args.get("lang", "en")
+    slow = request.args.get("slow", "false").lower() == "true"
+
+    tts = gTTS(text=text, lang=lang, slow=slow)
+
+    mp3_path = "temp/output.mp3"
+    tts.save(mp3_path)
+
+    # os.remove(mp3_path)
+
+    return send_file(
+        mp3_path, mimetype="audio/mp3", as_attachment=True, download_name="output.mp3"
+    )
 
 
 if __name__ == "__main__":
