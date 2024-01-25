@@ -1,0 +1,53 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+
+/* Additional styles */
+@import "additional-styles/utility-patterns.css";
+@import "additional-styles/range-slider.css";
+@import "additional-styles/toggle-switch.css";
+@import "additional-styles/theme.css";
+
+@import "tailwindcss/utilities";
+
+/* Additional Tailwind directives: https://tailwindcss.com/docs/functions-and-directives/#responsive */
+@layer utilities {
+  .rtl {
+    direction: rtl;
+  }
+}
+
+.asdfa {
+  color: #5272f9;
+  background-color: #a55dff;
+}
+
+.timeline-item-title {
+  padding: 5px 10px !important;
+  border-radius: 10px;
+  font-size: 0.8rem !important;
+}
+
+.rc-card-title:hover {
+  cursor: pointer !important;
+  font-size: 1rem !important;
+  color: #5272f9;
+}
+.rc-card-subtitle:hover {
+  cursor: pointer !important;
+}
+
+.timeline-main-wrapper {
+  padding: 10px 0px !important;
+}
+
+.vertical_alternating {
+  border-radius: 10px !important;
+  outline: none !important;
+  box-shadow: 0 0 0 1px #e2e8f0 !important;
+}
+
+.horizontal {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}

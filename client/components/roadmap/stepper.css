@@ -1,0 +1,64 @@
+/* Updated Stepper CSS */
+
+.step-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 36rem;
+}
+
+.step-item:not(:first-child):before {
+  content: '';
+  background-color: #718096; /* Gray line for inactive steps */
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  right: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.step {
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  position: relative;
+  background-color: #4a5568; /* Slate background color */
+  border-radius: 50%;
+  font-weight: 600;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+.active .step {
+  background-color: #4299e1; /* Sky blue for active step */
+}
+
+.complete .step {
+  background-color: #48bb78; /* Green for completed step */
+}
+
+/* .complete p {
+  /* color: #fff; */
+/* } */ 
+
+.complete:not(:first-child):before,
+.active:not(:first-child):before {
+  background-color: #48bb78;
+}
+
+/* Add transition for smoother visual changes */
+.step-item:before,
+.step,
+.active .step,
+.complete .step,
+.complete p,
+.complete:not(:first-child):before,
+.active:not(:first-child):before {
+  transition: background-color 0.3s ease;
+}
