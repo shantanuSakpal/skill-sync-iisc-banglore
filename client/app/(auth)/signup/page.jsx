@@ -1,11 +1,12 @@
 "use client";
 import router from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import data from "@/data/data.json";
 import { auth, db, storage } from "@/config/firebase-config";
 import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
+import { UserAuth } from "@/context/AuthContext.js";
 import {
   ref,
   getDownloadURL,
@@ -13,6 +14,7 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import getRoadmaps from "@/config/gpt-openai-config";
 // import { url } from "inspector";
 
 export default function SignUp() {
@@ -20,12 +22,17 @@ export default function SignUp() {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isFileSelected, setIsFileSelected] = useState(false);
   const [loading, setLoading] = useState(false);
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
   const router = useRouter();
   const industryCategories = data.industryCategories;
   const passions = data.passions;
   const jobs = data.jobs;
   const skills = data.skills;
   const roadmapDuration = data.duration;
+  const { user, createUser } = UserAuth();
 
   const [searchTerm, setSearchTerm] = useState("");
   console.log(searchTerm);
@@ -102,8 +109,8 @@ export default function SignUp() {
                 // the "skills" attribute (which is an array) in the formData should be set to the "skills" attribute from the json[0]
                 return {
                   ...prevData,
-                  industries: json[0].industryCategories,
-                  jobTypes: json[0].jobs,
+                  // industries: json[0].industryCategories,
+                  // jobTypes: json[0].jobs,
                   skills: json[0].skills,
                 };
               });
@@ -125,19 +132,23 @@ export default function SignUp() {
   const handleCheckboxChange = (value) => {
     if (step === 2) {
       //industry
-      console.log(formData);
       if (formData.industries.includes(value)) {
-        //remove
+        // remove
         setFormData((prevData) => ({
           ...prevData,
           industries: prevData.industries.filter((item) => item !== value),
         }));
       } else {
-        //add
-        setFormData((prevData) => ({
-          ...prevData,
-          industries: [...prevData.industries, value],
-        }));
+        // add
+        if (formData.industries.length < 3) {
+          setFormData((prevData) => ({
+            ...prevData,
+            industries: [...prevData.industries, value],
+          }));
+        } else {
+          // handle maximum selection limit
+          console.log("Maximum selection limit reached.");
+        }
       }
     } else if (step === 3) {
       //passion
@@ -149,10 +160,15 @@ export default function SignUp() {
         }));
       } else {
         //add
-        setFormData((prevData) => ({
-          ...prevData,
-          passions: [...prevData.passions, value],
-        }));
+        if (formData.passions.length < 3) {
+          setFormData((prevData) => ({
+            ...prevData,
+            passions: [...prevData.passions, value],
+          }));
+        } else {
+          // handle maximum selection limit
+          console.log("Maximum selection limit reached.");
+        }
       }
     } else if (step === 4) {
       //job type
@@ -164,10 +180,15 @@ export default function SignUp() {
         }));
       } else {
         //add
-        setFormData((prevData) => ({
-          ...prevData,
-          jobTypes: [...prevData.jobTypes, value],
-        }));
+        if (formData.jobTypes.length < 3) {
+          setFormData((prevData) => ({
+            ...prevData,
+            jobTypes: [...prevData.jobTypes, value],
+          }));
+        } else {
+          // handle maximum selection limit
+          console.log("Maximum selection limit reached.");
+        }
       }
     } else if (step === 5) {
       //skills
@@ -226,42 +247,60 @@ export default function SignUp() {
     setUploadProgress(0);
   };
 
-  const handleFinish = () => {
+  const handleSignUp = async () => {
+    // password checker
+    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+      return alert("Passwords do not match.");
+    }
+    try {
+      const userCredential = await createUser(
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+      const { uid } = userCredential.user;
+      setStep(step + 1);
+      console.log(userCredential);
+      setFormData((prev) => ({
+        ...prev,
+        uid: uid,
+        name: nameRef.current.value,
+        email: emailRef.current.value,
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+    // setStep(step + 1);
+  };
+
+  const handleFinish = async () => {
     //log the form data, the form data is being stored in formData
+    setFormData((prevData) => ({ ...prevData, uid: user.uid }));
     console.log("formData,", formData);
-    // store the formData object in the Loccal Strorage
-    localStorage.setItem("formData", JSON.stringify(formData));
-    /*e.g. 
-    formData = {
-      "name": "",
-      "email": "",
-      "industries": [],
-      "passions": [],
-      "jobTypes": [],
-      "skills": [],
-      "curriculumPdf": "firebase link to the pdf",
-      "resumePdf": "firebase link to the pdf"
-    } */
 
-    //send the form data to the backend
+    localStorage.setItem("formData", formData);
 
-    // fetch("http://localhost:5000/suggest_roadmaps", {
-    //   method: "POST",
-    //   body: JSON.stringify(formData),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // })
-    //   .then((res) => {
-    //     //redirect to career compass
-    //      router.push("/career-compass");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    // save the formData to the firestore database
+    const docRef = await addDoc(collection(db, "user_bio"), formData);
+    console.log("Document written with ID: ", docRef.id);
+
+    const response = await getRoadmaps(
+      formData.skills,
+      formData.jobTypes,
+      formData.industries,
+      formData.passions,
+      formData.roadmapDuration
+    );
+
+    // Convert the response string to an object
+    const responseObject = JSON.parse(response);
+
+    //store the response object into the localStorage
+    localStorage.setItem("roadmapOptions", responseObject);
+    console.log(responseObject);
   };
 
   const [formData, setFormData] = useState({
+    uid: "",
     name: "",
     email: "",
     industries: [],
@@ -307,6 +346,7 @@ export default function SignUp() {
                       placeholder="Enter your name"
                       onChange={handleInputChange}
                       value={formData.name}
+                      ref={nameRef}
                     />
                   </div>
                 </div>
@@ -326,6 +366,41 @@ export default function SignUp() {
                       placeholder="Enter your email address"
                       onChange={handleInputChange}
                       value={formData.email}
+                      ref={emailRef}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-4">
+                  <div className="w-full px-3">
+                    <label
+                      className="block text-gray-800 text-sm font-medium mb-1"
+                      htmlFor="email"
+                    >
+                      Password
+                    </label>
+                    <input
+                      id="password"
+                      type="password"
+                      className="form-input w-full text-gray-800"
+                      placeholder="Enter your password"
+                      ref={passwordRef}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-4">
+                  <div className="w-full px-3">
+                    <label
+                      className="block text-gray-800 text-sm font-medium mb-1"
+                      htmlFor="email"
+                    >
+                      Confirm Password
+                    </label>
+                    <input
+                      id="password"
+                      type="password"
+                      className="form-input w-full text-gray-800"
+                      placeholder="Re-enter your password"
+                      ref={confirmPasswordRef}
                     />
                   </div>
                 </div>
@@ -715,7 +790,14 @@ export default function SignUp() {
                 Previous
               </button>
             )}
-            {step !== 7 ? (
+            {step === 0 ? (
+              <button
+                className="btn text-white bg-blue-600  w-55"
+                onClick={handleSignUp}
+              >
+                Sign me Up !
+              </button>
+            ) : step !== 7 ? (
               <button
                 className="btn text-white bg-blue-600  w-55"
                 onClick={() => handleNext()}
