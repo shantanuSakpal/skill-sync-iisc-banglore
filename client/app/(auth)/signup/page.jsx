@@ -30,6 +30,7 @@ export default function SignUp() {
     uid: "",
     name: "",
     email: "",
+    degree: "",
     industries: [],
     passions: [],
     jobTypes: [],
@@ -119,7 +120,7 @@ export default function SignUp() {
               //   console.log("Document written with ID: ", docRef.id);
               // })
               // store json into localStorage
-              // localStorage.setItem("user_bio", json[0]);
+              localStorage.setItem("user_bio", json[0]);
               console.log(json[0]);
               setFormData((prevData) => {
                 // the "skills" attribute (which is an array) in the formData should be set to the "skills" attribute from the json[0]
@@ -128,6 +129,7 @@ export default function SignUp() {
                   // industries: json[0].industryCategories,
                   // jobTypes: json[0].jobs,
                   skills: json[0].skills,
+                  degree: json[0].degree
                 };
               });
               handleNext();
@@ -297,7 +299,7 @@ export default function SignUp() {
     // save the formData to the firestore database 
     const docRef = await addDoc(collection(db, "user_bio"), formData);
     console.log("Document written with ID: ", docRef.id);
-
+    localStorage.setItem("userDocRef", docRef.id)
 
     const response = await getRoadmaps(
       formData.skills,

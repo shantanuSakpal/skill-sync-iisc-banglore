@@ -10,11 +10,13 @@ from app import (
     analyze_emotions,
     process_video,
     gemenai_output,
+    question_gen,
+    jd_parser
 )
 from flask_cors import CORS
 import json
 from flask import Flask, request, jsonify
-from gemenai_output import gemenai_output
+
 
 app = Flask(__name__)
 
@@ -37,7 +39,31 @@ def parse_resume():
         f.write(r.content)
 
     # Call the resume_parser function
-    dictionary_with_extracted_parameters = resume_parser(filename)
+    dictionary_with_extracted_parameters = jd_parser(filename)
+
+    # # Delete the file from the utils directory
+    os.remove(os.path.join(os.path.abspath("./utils"), filename))
+
+    # return extracted_parameters_json
+    return json.dumps(dictionary_with_extracted_parameters, indent=4)
+
+@app.route("/parse_jd", methods=["POST"])
+def parse_jd():
+    # get the url from the body of the post request
+    url = request.json["url"]
+    # Download the file from the url
+    r = requests.get(url, allow_redirects=True)
+    parsed_url = urlparse(url)
+    # Extract the path from the URL and unquote it
+    unquoted_path = unquote(parsed_url.path)
+    # Get the filename from the path
+    filename = unquoted_path.split("/")[-1]
+    # Save the file to the utils directory
+    with open(os.path.join(os.path.abspath("./utils"), filename), "wb") as f:
+        f.write(r.content)
+
+    # Call the resume_parser function
+    dictionary_with_extracted_parameters = jd_parser(filename)
 
     # # Delete the file from the utils directory
     os.remove(os.path.join(os.path.abspath("./utils"), filename))
@@ -118,6 +144,20 @@ def generate_text_api():
 
         generated_text = gemenai_output(transcript, emotions, userdata, question)
         return jsonify({"generated_text": generated_text})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/generate_questions", methods=["POST"])
+def generate_questions_api():
+    try:
+        resume = request.json["resume"]
+        job_description = request.json["job_description"]
+        role = request.json["role"]
+
+        questions = question_gen(resume, job_description, role)
+        return jsonify({"questions": questions})
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
