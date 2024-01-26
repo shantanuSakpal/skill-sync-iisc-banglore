@@ -51,3 +51,11 @@
   justify-content: center !important;
   align-items: center !important;
 }
+.TimelineContentRender-sc-cif21b-5 {
+  border-radius: 10px;
+  box-shadow: 0 0 0 5px #e2e8f0;
+}
+
+.TimelineControlContainer-sc-1apb8f9-3 {
+  margin-top: -2rem;
+}

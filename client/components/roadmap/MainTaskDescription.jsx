@@ -86,7 +86,7 @@ export default function MainTaskDescription({ phase }) {
   });
 
   return (
-    <div className="flex  justify-center gap-5 p-5 w-full">
+    <div className="flex  justify-center gap-5 p-5 w-full bg-pur rounded-lg shadow-lg">
       <div className="w-1/2 text-center ">
         <Chrono
           items={items}
@@ -145,7 +145,7 @@ export default function MainTaskDescription({ phase }) {
       <div className="w-1/2 flex flex-col gap-5">
         <div
           className="
-          bg-gray-100 border p-5 rounded-lg shadow-lg flex flex-col gap-5 "
+          bg-transparent  p-5 rounded-lg shadow-lg flex flex-col gap-5 "
         >
           <div className="text-center w-full text-xl text-purple-600 font-bold">
             LEARN
@@ -157,7 +157,7 @@ export default function MainTaskDescription({ phase }) {
             </div>
           </div>
 
-          <p className="">
+          <div className="">
             <span
               className="
             font-bold text-sm
@@ -176,8 +176,8 @@ export default function MainTaskDescription({ phase }) {
                 );
               })}
             </ul>
-          </p>
-          <p className="">
+          </div>
+          <div className="">
             <span
               className="
             font-bold text-sm
@@ -186,7 +186,7 @@ export default function MainTaskDescription({ phase }) {
               Reference Material
             </span>
             <ul className="text-md">{selectedSubtask?.materials}</ul>
-          </p>
+          </div>
 
           <div className="w-full text-center my-5 flex flex-row gap-5 justify-center items-center">
             <div>30% Completed</div>

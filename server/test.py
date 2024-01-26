@@ -42,11 +42,11 @@ def generate_curriculum_api():
 def generate_roadmap_api():
     try:
         # Check if the curriculum.json file exists
-        if not os.path.exists("utils/roadmap.json"):
+        if not os.path.exists("utils/ml_roadmap.json"):
             raise FileNotFoundError("curriculum.json not found. Generate the curriculum first.")
 
         # Read content from curriculum.json
-        with open("utils/roadmap.json", "r") as json_file:
+        with open("utils/ml_roadmap.json", "r") as json_file:
             curriculum_content = json.load(json_file)
 
         # Return the content of curriculum.json

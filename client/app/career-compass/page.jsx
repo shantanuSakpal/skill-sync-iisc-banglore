@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { Chrono } from "react-chrono";
 import data from "@/data/data.json";
 import MainTaskDescription from "@/components/roadmap/MainTaskDescription.jsx";
@@ -47,6 +47,9 @@ import MainTaskDescription from "@/components/roadmap/MainTaskDescription.jsx";
   ]*/
 import { MdAccessTimeFilled } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
+import { auth, db, storage } from "@/config/firebase-config";
+import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
+import { useEdges } from "reactflow";
 
 const roadmapToTimelineItems = (roadmap) => {
   let timelineItems = [];
@@ -82,29 +85,27 @@ const Page = () => {
   const items = roadmapToTimelineItems(roadmap);
 
   return (
-    <div className="px-5  w-full">
-      <div className="mb-4 w-full text-center text-xl font-bold">
+    <div className="px-5  w-full flex justify-center flex-col">
+      <div className="mb-4 w-full text-center text-xl font-bold ">
         Your Roadmap
       </div>
-      <div className="w-full border shadow-lg  rounded-lg  p-5">
+      <div className=" shadow-lg w-fit mx-auto rounded-lg  p-5">
         <Chrono
           items={items}
           mode="HORIZONTAL"
           itemWidth={250}
           timelinePointShape="circle"
-          timelinePointDimension={30}
+          timelinePointDimension={40}
           theme={timelineTheme} // Set the theme for the timeline
           cardHeight="50vh"
           fontSizes={{
             cardSubtitle: "0.85rem",
             cardText: "0.8rem",
             cardTitle: "1.5rem",
-            title: "1rem",
+            title: "1.2rem",
           }}
           lineWidth={3}
-          parseDetailsAsHTML
           slideItemDuration={500}
-          timelineCircleDimension={0}
         >
           <div className="chrono-icons">
             {
@@ -117,7 +118,7 @@ const Page = () => {
                     <FaCheckCircle
                       key={index}
                       className="
-                  text-green-600
+                  text-purple-700
                   text-2xl
                   w-full
                   "
@@ -128,7 +129,7 @@ const Page = () => {
                     <MdAccessTimeFilled
                       key={index}
                       className="
-                  text-blue-900
+                  text-gray-400
                   text-2xl
                   "
                     />

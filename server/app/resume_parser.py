@@ -68,12 +68,10 @@ def main(file_name) :
         return response.choices[0].message.content
 
     resume_dictionary = generate_resume_dictionary(resume_text)
-    print(resume_dictionary)
-    # Save resume_dict as a JSON file
     resume_dict = json.loads(resume_dictionary)
-    json_path = os.path.abspath('./utils/resume_dictionary.json')
-    with open(json_path, 'w') as json_file:
-        json.dump(resume_dict, json_file)
+    # json_path = os.path.abspath('./utils/resume_dictionary.json')
+    # with open(json_path, 'w') as json_file:
+    #     json.dump(resume_dict, json_file)
 
     return resume_dict
 
