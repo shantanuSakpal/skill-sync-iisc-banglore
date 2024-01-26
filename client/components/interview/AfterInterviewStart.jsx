@@ -1,31 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Recorder from "./Recorder";
 import AiAvatar from "./AiAvatar";
-import AudioRecorder from "./AudioRecorder";
-import SpeechToText from "./SpeechToText";
-import { db, storage } from "@/config/firebase-config.js";
-import { ref, uploadBytes } from "firebase/storage";
-import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
-
+// import AudioRecorder from "./AudioRecorder";
+// import SpeechToText from "./SpeechToText";
 export default function AfterInterviewStart({ questions }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [transcript, setTranscript] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
-  const storageRef = ref(storage, "/interviewVideos/userId/question2");
 
-  const handleNextQuestion = async (transcript, mediaBlobUrl) => {
-    const videoRef = storageRef.child(
-      "recorded-videos/" + Date.now() + ".webm"
-    );
-    videoRef.put(mediaBlobUrl);
-    // store the transcripts in firestore
-    const docRef = await addDoc(
-      collection(db, `ai_interview_transcripts-${currentQuestionIndex}`),
-      { transcript: transcript }
-    );
+  const handleNextQuestion = () => {
     setCurrentQuestionIndex(currentQuestionIndex + 1);
     console.log("transcript", transcript);
-    // console.log("videoUrl", videoUrl);
+    console.log("videoUrl", videoUrl);
     setTranscript("");
     setVideoUrl("");
   };

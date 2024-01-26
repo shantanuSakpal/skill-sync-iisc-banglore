@@ -1,84 +1,71 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 
 export default function AiAvatar() {
   const videoUrlList = [
     "https://firebasestorage.googleapis.com/v0/b/iitb-brogrammers.appspot.com/o/AI_Avatar_Questions%2FGeneral_Questions%2FVideo1.webm?alt=media&token=364814c0-65e1-4ddd-823e-a092d9b36fe2",
     "https://firebasestorage.googleapis.com/v0/b/iitb-brogrammers.appspot.com/o/AI_Avatar_Questions%2FGeneral_Questions%2Fvideo2.webm?alt=media&token=778984cc-8e52-49a6-bba3-a40c87299d6d",
-    // ... Add more video URLs as needed
+    "https://firebasestorage.googleapis.com/v0/b/iitb-brogrammers.appspot.com/o/AI_Avatar_Questions%2FGeneral_Questions%2Fvideo3.webm?alt=media&token=1f19752f-d6a0-41d6-bc33-fec3c17a0eab",
+    "https://firebasestorage.googleapis.com/v0/b/iitb-brogrammers.appspot.com/o/AI_Avatar_Questions%2FDynamic_Questions%2FDY_video2.webm?alt=media&token=49d005b7-3670-4a89-86e6-478a0c26e7d5",
   ];
 
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(1);
-  const [isRecording, setIsRecording] = useState(false);
-
   const videoRef = useRef(null);
+  let currentVideoIndex = 0;
 
-  const handleStartRecording = () => {
-    console.log(videoRef.current);
-    setIsRecording(true);
+  const handleStart = () => {
+    videoRef.current.play();
+  };
+
+  const handleNext = () => {
+    videoRef.current.pause();
+    currentVideoIndex = (currentVideoIndex + 1) % videoUrlList.length;
+    videoRef.current.src = videoUrlList[currentVideoIndex];
     videoRef.current.play();
   };
 
   const handlePlayAgain = () => {
+    videoRef.current.pause();
     videoRef.current.currentTime = 0;
     videoRef.current.play();
   };
 
-  const handleNextQuestion = () => {
-    setIsRecording(false);
-    setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videoUrlList.length);
-    console.log(currentVideoIndex);
-  };
-
-  var currentVideoUrl = videoUrlList[currentVideoIndex];
-
-  useEffect(() => {    
-    videoRef.current?.load();
-  }, [currentVideoUrl]);
+  useEffect(() => {
+    videoRef.current.play();
+  }, []);
+  1;
 
   return (
-    <>
-      <div className="mx-auto w-full flex justify-center items-center">
-        <div className="circular-video-container">
-          <video
-            ref={videoRef}
-            className={`mx-auto circular-video ${isRecording ? "recording" : ""}`}
-            alt="ai person"
-            width="500"
-            height="500"
-            // onEnded={handleNextQuestion} // Trigger next question when the video ends
-          >
-          <source src={currentVideoUrl} type="video/mp4" />
+    <div className="mx-auto w-full flex justify-center items-center">
+      <div
+        onClick={handlePlayAgain}
+        className="circular-video-container cursor: pointer"
+      >
+        <video
+          ref={videoRef}
+          className="mx-auto circular-video"
+          alt="ai person"
+          width="500"
+          height="500"
+        >
+          <source src={videoUrlList[currentVideoIndex]} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
-      <div className="button-container">
-        {!isRecording && (
-          <button onClick={handleStartRecording}>Start Recording</button>
-        )}
-        {isRecording && (
-          <button onClick={handlePlayAgain}>Play Again</button>
-        )}
-        <button onClick={handleNextQuestion}>Next Question</button>
-      </div>
+      {/* <div className="button-container">
+        <button onClick={handleStart}>Start</button>
+        <button onClick={handleNext}>Next</button>
+      </div> */}
       <style jsx>{`
         .circular-video-container {
           width: 500px;
           height: 500px;
           overflow: hidden;
           border-radius: 50%;
-          position: relative;
         }
 
         .circular-video {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: filter 0.5s ease;
-        }
-
-        .circular-video.recording {
-          /* Remove the grayscale filter */
-          /* filter: grayscale(100%); */
         }
 
         .button-container {
@@ -96,6 +83,5 @@ export default function AiAvatar() {
         }
       `}</style>
     </div>
-    </>
   );
 }
