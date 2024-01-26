@@ -1,4 +1,5 @@
 from .resume_parser import main as resume_parser
+from .jd_parser import main as jd_parser
 
 # from .openai_services import generate_curriculum
 from .pdf_services import extract_text_from_pdf

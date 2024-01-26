@@ -11,8 +11,8 @@ export default function InterviewAce() {
   const [customQuestions, setCustomQuestions] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [jobs, setJobs] = useState([
-    "Software Engineer",
-    "Data Scientist",
+    "Software Developer",
+    "Data Analyst",
     "Product Manager",
     "Network Engineer",
     "UX/UI Designer",
@@ -57,9 +57,11 @@ export default function InterviewAce() {
     setCustomQuestions([...customQuestions, ""]);
   };
 
-  const handleCheckboxChange = (value) => {
-    setSelectedJob(value);
-    console.log(value);
+  const handleCheckboxChange = (value, formData) => {
+    if (formData.job_description === '') {
+      setSelectedJob(value);
+      console.log(value);
+    }
   };
 
   return (
@@ -77,6 +79,7 @@ export default function InterviewAce() {
           filteredJobs={filteredJobs}
           handleCheckboxChange={handleCheckboxChange}
           selectedJob={selectedJob}
+          setSelectedJob={setSelectedJob}
           setIsInterviewStarted={setIsInterviewStarted}
           handleInputChange={handleInputChange}
           handleAddQuestion={handleAddQuestion}

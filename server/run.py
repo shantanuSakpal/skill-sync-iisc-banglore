@@ -11,6 +11,7 @@ from app import (
     process_video,
     gemenai_output,
     question_gen,
+    jd_parser
 )
 from flask_cors import CORS
 import json
@@ -38,7 +39,31 @@ def parse_resume():
         f.write(r.content)
 
     # Call the resume_parser function
-    dictionary_with_extracted_parameters = resume_parser(filename)
+    dictionary_with_extracted_parameters = jd_parser(filename)
+
+    # # Delete the file from the utils directory
+    os.remove(os.path.join(os.path.abspath("./utils"), filename))
+
+    # return extracted_parameters_json
+    return json.dumps(dictionary_with_extracted_parameters, indent=4)
+
+@app.route("/parse_jd", methods=["POST"])
+def parse_jd():
+    # get the url from the body of the post request
+    url = request.json["url"]
+    # Download the file from the url
+    r = requests.get(url, allow_redirects=True)
+    parsed_url = urlparse(url)
+    # Extract the path from the URL and unquote it
+    unquoted_path = unquote(parsed_url.path)
+    # Get the filename from the path
+    filename = unquoted_path.split("/")[-1]
+    # Save the file to the utils directory
+    with open(os.path.join(os.path.abspath("./utils"), filename), "wb") as f:
+        f.write(r.content)
+
+    # Call the resume_parser function
+    dictionary_with_extracted_parameters = jd_parser(filename)
 
     # # Delete the file from the utils directory
     os.remove(os.path.join(os.path.abspath("./utils"), filename))
