@@ -212,7 +212,7 @@ export default function Features() {
               {/* Tabs buttons */}
               <div className="mb-8 md:mb-0">
                 <Link
-                  href={"/career-compass"}
+                  href={"/solver-space"}
                   className="btn text-white bg-blue-600 hover:bg-blue-700 w-1/2 mb-4 sm:w-auto sm:mb-0 mt-5 capitalize"
                 >
                   Check out some real-world projects{" "}
