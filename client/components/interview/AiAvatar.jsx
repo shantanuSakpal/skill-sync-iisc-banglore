@@ -3,8 +3,9 @@ import React, { useRef, useEffect } from "react";
 export default function AiAvatar() {
   const videoUrlList = [
     "https://firebasestorage.googleapis.com/v0/b/iitb-brogrammers.appspot.com/o/AI_Avatar_Questions%2FGeneral_Questions%2FVideo1.webm?alt=media&token=364814c0-65e1-4ddd-823e-a092d9b36fe2",
-    "https://firebasestorage.googleapis.com/v0/b/iitb-brogrammers.appspot.com/o/AI_Avatar_Questions%2FDynamic_Questions%2Fvideo2.webm?alt=media&token=0d4d2ee0-82cb-4c6a-8df8-ea5038e35ff8",
-    "https://firebasestorage.googleapis.com/v0/b/iitb-brogrammers.appspot.com/o/AI_Avatar_Questions%2FGeneral_Questions%2Fvideo3.webm?alt=media&token=1f19752f-d6a0-41d6-bc33-fec3c17a0eab"
+    "https://firebasestorage.googleapis.com/v0/b/iitb-brogrammers.appspot.com/o/AI_Avatar_Questions%2FGeneral_Questions%2Fvideo2.webm?alt=media&token=778984cc-8e52-49a6-bba3-a40c87299d6d",
+    "https://firebasestorage.googleapis.com/v0/b/iitb-brogrammers.appspot.com/o/AI_Avatar_Questions%2FGeneral_Questions%2Fvideo3.webm?alt=media&token=1f19752f-d6a0-41d6-bc33-fec3c17a0eab",
+    "https://firebasestorage.googleapis.com/v0/b/iitb-brogrammers.appspot.com/o/AI_Avatar_Questions%2FDynamic_Questions%2FDY_video2.webm?alt=media&token=49d005b7-3670-4a89-86e6-478a0c26e7d5"
   ];
 
   const videoRef = useRef(null);
@@ -23,13 +24,13 @@ export default function AiAvatar() {
 
   const handlePlayAgain = () => {
     videoRef.current.pause();
-    videoRef.current.currentTime = 0; // Reset the current time to the beginning
+    videoRef.current.currentTime = 0;
     videoRef.current.play();    
   }
 
   useEffect(() => {
     videoRef.current.play();
-  }, []);
+  }, []);1
 
   return (
     <div className="mx-auto w-full flex justify-center items-center">
