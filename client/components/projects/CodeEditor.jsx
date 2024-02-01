@@ -25,7 +25,7 @@ function CodeEditor({ currentProject }) {
   return (
     <div>
       {/* Dropdown for language selection */}
-      <label className="text-xl font-bold p-1">Select Language:</label>
+      <label className="text-xl font-semibold p-1">Your Solution:</label>
       <select
         className="p-1 border rounded-md"
         value={selectedLanguage}

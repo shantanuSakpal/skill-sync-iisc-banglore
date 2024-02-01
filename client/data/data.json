@@ -148,304 +148,250 @@
   ],
   "roadmap": [
     {
+      "curriculum": ["Artificial Intelligence", "Machine learning"],
       "id": "1",
-      "name": "HTML",
-      "description": "Learn the basics of HTML and how to create forms. This will be the foundation of your web development journey.",
-      "curriculum": [
-        "Introduction to Web Development",
-        "Understanding HTML",
-        "HTML Document Structure",
-        "HTML Tags and Elements",
-        "Creating Forms in HTML"
-      ],
-      "materials": "Recommended Book: 'HTML and CSS: Design and Build Websites' by Jon Duckett",
-      "projects": "redirect to project page with filter",
-      "date": "26th Jan - 5th Feb",
-      "done": true,
-      "tags": ["HTML", "Web Development"],
+      "materials": "",
+      "name": "Introduction to Machine Learning",
+      "projects": "",
+      "status": false,
       "subtasks": [
         {
-          "name": "Basic HTML Structure",
-          "description": "Learn the basic structure of an HTML document.",
-          "curriculum": ["Introduction to Web Development", "demo topic"],
-          "materials": "W3Schools - Basic HTML Structure",
-          "projects": "redirect to project page, search for the project",
-          "done": true,
-          "date": "20th Jan - 25th Jan",
-          "tags": ["HTML", "Web Development"]
-        },
-        {
-          "name": "Important Tags",
-          "description": "Explore essential HTML tags and their usage.",
-          "curriculum": ["Understanding HTML"],
-          "materials": "MDN Web Docs - HTML Element Reference",
-          "projects": "redirect to project page, search for the project",
-          "done": true,
-          "date": "26th Jan - 31st Jan"
-        },
-        {
-          "name": "IDs and Classes",
-          "description": "Understand how to use IDs and classes in HTML elements.",
-          "curriculum": ["HTML Tags and Elements"],
-          "materials": "CSS-Tricks - IDs and Classes",
-          "projects": "redirect to project page, search for the project",
+          "curriculum": ["Artificial Intelligence", "Machine learning"],
+          "description": "This subtask involves learning about the fundamental concepts and principles of Machine Learning, including supervised and unsupervised learning, training and testing datasets, and evaluation metrics.",
           "done": false,
-          "date": "1st Feb - 5th Feb"
+          "materials": "",
+          "name": "Understanding the basics of Machine Learning",
+          "projects": ""
         },
         {
-          "name": "Basic HTML Structure",
-          "description": "Learn the basic structure of an HTML document.",
-          "curriculum": ["Introduction to Web Development", "demo topic"],
-          "materials": "W3Schools - Basic HTML Structure",
-          "projects": "redirect to project page, search for the project",
-          "done": true,
-          "date": "20th Jan - 25th Jan"
-        },
-        {
-          "name": "Important Tags",
-          "description": "Explore essential HTML tags and their usage.",
-          "curriculum": ["Understanding HTML"],
-          "materials": "MDN Web Docs - HTML Element Reference",
-          "projects": "redirect to project page, search for the project",
-          "done": true,
-          "date": "26th Jan - 31st Jan"
-        },
-        {
-          "name": "IDs and Classes",
-          "description": "Understand how to use IDs and classes in HTML elements.",
-          "curriculum": ["HTML Tags and Elements"],
-          "materials": "CSS-Tricks - IDs and Classes",
-          "projects": "redirect to project page, search for the project",
+          "curriculum": ["Artificial Intelligence", "Machine learning"],
+          "description": "In this subtask, you will dive deeper into various Machine Learning algorithms such as decision trees, logistic regression, support vector machines, and random forests. Gain an understanding of how these algorithms work and their applications.",
           "done": false,
-          "date": "1st Feb - 5th Feb"
+          "materials": "",
+          "name": "Exploring different Machine Learning algorithms",
+          "projects": ""
+        },
+        {
+          "curriculum": [
+            "Artificial Intelligence",
+            "Machine learning",
+            "Python"
+          ],
+          "description": "This subtask involves gaining hands-on experience in implementing Machine Learning algorithms using Python libraries such as scikit-learn. Learn how to preprocess data, split datasets, train models, and evaluate their performance.",
+          "done": false,
+          "materials": "",
+          "name": "Implementing Machine Learning algorithms in Python",
+          "projects": ""
         }
-      ]
+      ],
+      "time required": "3"
     },
     {
+      "curriculum": ["Artificial Intelligence", "Machine learning"],
       "id": "2",
-      "name": "CSS",
-      "description": "Learn how to style your HTML elements with CSS. You will also learn about responsive web design.",
-      "done": false,
-      "curriculum": [
-        "Introduction to CSS",
-        "CSS Selectors",
-        "Box Model",
-        "Flexbox and Grid",
-        "Responsive Web Design"
-      ],
-      "materials": "Recommended Book: 'CSS Secrets' by Lea Verou",
-      "projects": "redirect to project page with filter",
+      "materials": "",
+      "name": "Data Preprocessing",
+      "projects": "",
+      "status": false,
       "subtasks": [
         {
-          "name": "CSS Selectors",
-          "description": "Learn different CSS selectors for styling elements.",
-          "curriculum": ["CSS Selectors"],
-          "materials": "Mozilla Developer Network - CSS Selectors",
-          "projects": "redirect to project page, search for the project",
-          "done": false
+          "curriculum": ["Artificial Intelligence", "Machine learning"],
+          "description": "In this subtask, you will learn why data preprocessing is essential in Machine Learning. Gain an understanding of different techniques such as handling missing data, feature scaling, and handling categorical variables.",
+          "done": false,
+          "materials": "",
+          "name": "Understanding the importance of data preprocessing",
+          "projects": ""
         },
         {
-          "name": "Box Model",
-          "description": "Understand the CSS box model and its properties.",
-          "curriculum": ["Box Model"],
-          "materials": "CSS-Tricks - CSS Box Model",
-          "projects": "redirect to project page, search for the project",
-          "done": false
+          "curriculum": ["Artificial Intelligence", "Machine learning"],
+          "description": "This subtask involves learning how to clean and transform raw data into a suitable format for Machine Learning tasks. Explore techniques like outlier detection, data normalization, and feature extraction.",
+          "done": false,
+          "materials": "",
+          "name": "Cleaning and transforming data",
+          "projects": ""
         },
         {
-          "name": "Flexbox and Grid",
-          "description": "Explore CSS Flexbox and Grid for layout design.",
-          "curriculum": ["Flexbox and Grid"],
-          "materials": "CSS Tricks - A Complete Guide to Flexbox",
-          "projects": "redirect to project page, search for the project",
-          "done": false
+          "curriculum": ["Artificial Intelligence", "Machine learning"],
+          "description": "In this subtask, you will learn techniques for integrating multiple datasets and reducing the dimensionality of feature space. Gain hands-on experience with methods like principal component analysis (PCA) and feature selection.",
+          "done": false,
+          "materials": "",
+          "name": "Data integration and reduction techniques",
+          "projects": ""
         }
-      ]
+      ],
+      "time required": "5"
     },
     {
+      "curriculum": ["Artificial Intelligence", "Machine learning"],
       "id": "3",
-      "name": "JavaScript",
-      "curriculum": [
-        "Introduction to JavaScript",
-        "Variables and Data Types",
-        "Control Flow and Loops",
-        "Functions and Objects",
-        "DOM Manipulation"
-      ],
-      "description": "Learn the basics of JavaScript and how to manipulate the Document Object Model (DOM).",
-      "done": false,
-      "materials": "Recommended Book: 'Eloquent JavaScript' by Marijn Haverbeke",
-      "projects": "redirect to project page with filter",
+      "materials": "",
+      "name": "Model Evaluation and Validation",
+      "projects": "",
+      "status": false,
       "subtasks": [
         {
-          "name": "Variables and Data Types",
-          "description": "Learn about variables and different data types in JavaScript.",
-          "curriculum": ["Variables and Data Types"],
-          "materials": "MDN Web Docs - JavaScript Basics",
-          "projects": "redirect to project page, search for the project",
-          "done": false
+          "curriculum": ["Artificial Intelligence", "Machine learning"],
+          "description": "In this subtask, you will learn about different evaluation metrics used in assessing the performance of Machine Learning models. Gain insights into metrics like accuracy, precision, recall, and F1 score.",
+          "done": false,
+          "materials": "",
+          "name": "Understanding evaluation metrics",
+          "projects": ""
         },
         {
-          "name": "Control Flow and Loops",
-          "description": "Understand how to control the flow of your JavaScript code.",
-          "curriculum": ["Control Flow and Loops"],
-          "materials": "Mozilla Developer Network - JavaScript Loops",
-          "projects": "redirect to project page, search for the project",
-          "done": false
+          "curriculum": ["Artificial Intelligence", "Machine learning"],
+          "description": "This subtask involves exploring cross-validation techniques like k-fold cross-validation and stratified sampling. Learn how to use these methods to estimate the performance of models on unseen data.",
+          "done": false,
+          "materials": "",
+          "name": "Cross-validation techniques",
+          "projects": ""
         },
         {
-          "name": "DOM Manipulation",
-          "description": "Explore manipulating the Document Object Model (DOM) with JavaScript.",
-          "curriculum": ["DOM Manipulation"],
-          "materials": "W3Schools - JavaScript HTML DOM",
-          "projects": "redirect to project page, search for the project",
-          "done": false
+          "curriculum": ["Artificial Intelligence", "Machine learning"],
+          "description": "In this subtask, you will learn how to optimize the hyperparameters of Machine Learning models to improve their performance. Explore techniques like grid search and random search.",
+          "done": false,
+          "materials": "",
+          "name": "Hyperparameter tuning",
+          "projects": ""
         }
+      ],
+      "time required": "4"
+    },
+    {
+      "curriculum": ["Artificial Intelligence", "Machine learning"],
+      "id": "4",
+      "materials": "",
+      "name": "Advanced Machine Learning Techniques",
+      "projects": "",
+      "status": false,
+      "subtasks": [
+        {
+          "curriculum": ["Artificial Intelligence", "Machine learning"],
+          "description": "This subtask involves understanding ensemble learning techniques such as bagging, boosting, and stacking. Gain insights into combining multiple models to improve overall performance.",
+          "done": false,
+          "materials": "",
+          "name": "Ensemble learning",
+          "projects": ""
+        },
+        {
+          "curriculum": [
+            "Artificial Intelligence",
+            "Machine learning",
+            "Deep learning"
+          ],
+          "description": "In this subtask, you will dive into the field of Deep Learning. Gain an understanding of neural networks, activation functions, convolutional neural networks (CNNs), and recurrent neural networks (RNNs).",
+          "done": false,
+          "materials": "",
+          "name": "Deep Learning",
+          "projects": ""
+        },
+        {
+          "curriculum": ["Artificial Intelligence", "Machine learning"],
+          "description": "This subtask involves exploring Natural Language Processing techniques. Learn how to process and analyze text data, build language models, and perform sentiment analysis.",
+          "done": false,
+          "materials": "",
+          "name": "Natural Language Processing (NLP)",
+          "projects": ""
+        }
+      ],
+      "time required": "6"
+    }
+  ],
+  "roadmap_suggestions": [
+    {
+      "title": "AI Researcher",
+      "overview": "Roadmap for becoming an AI Researcher with a focus on AI, Machine Learning, and Deep Learning technologies",
+      "duration": "6-12 months",
+      "topics": [
+        "Deep Learning Fundamentals",
+        "Neural Networks and PyTorch",
+        "Advanced Machine Learning Techniques"
+      ],
+      "learning_objectives": [
+        "Understand deep learning architectures and algorithms",
+        "Implement neural network models using PyTorch",
+        "Explore advanced machine learning concepts and techniques"
+      ],
+      "prerequisites": [
+        "Solid understanding of Python, programming, and data structures",
+        "Familiarity with Next.js, React.js, Node.js for web development"
+      ],
+      "sample_courses": [
+        "Deep Learning Specialization on Coursera",
+        "Neural Networks and Deep Learning on Udemy",
+        "Advanced Machine Learning on edX"
       ]
     },
     {
-      "id": "1",
-      "name": "React.js",
-      "description": "Learn how to build interactive user interfaces with React.js. You will also learn about state management with Redux.",
-      "curriculum": [
-        "Introduction to React.js",
-        "React Components",
-        "React Hooks",
-        "React Router",
-        "Redux"
+      "title": "AI Researcher",
+      "overview": "Roadmap for becoming an AI Researcher with a focus on AI, Machine Learning, and Deep Learning technologies",
+      "duration": "6-12 months",
+      "topics": [
+        "Deep Learning Fundamentals",
+        "Neural Networks and PyTorch",
+        "Advanced Machine Learning Techniques"
       ],
-      "materials": "Recommended Book: 'React Quickly' by Azat Mardan",
-      "projects": "redirect to project page with filter",
-      "date": "26th Jan - 5th Feb",
-      "done": false,
-      "tags": ["React.js", "Web Development"],
-      "subtasks": [
-        {
-          "name": "Basic HTML Structure",
-          "description": "Learn the basic structure of an HTML document.",
-          "curriculum": ["Introduction to Web Development", "demo topic"],
-          "materials": "W3Schools - Basic HTML Structure",
-          "projects": "redirect to project page, search for the project",
-          "done": false,
-          "date": "20th Jan - 25th Jan"
-        },
-        {
-          "name": "Important Tags",
-          "description": "Explore essential HTML tags and their usage.",
-          "curriculum": ["Understanding HTML"],
-          "materials": "MDN Web Docs - HTML Element Reference",
-          "projects": "redirect to project page, search for the project",
-          "done": false,
-          "date": "26th Jan - 31st Jan"
-        },
-        {
-          "name": "IDs and Classes",
-          "description": "Understand how to use IDs and classes in HTML elements.",
-          "curriculum": ["HTML Tags and Elements"],
-          "materials": "CSS-Tricks - IDs and Classes",
-          "projects": "redirect to project page, search for the project",
-          "done": false,
-          "date": "1st Feb - 5th Feb"
-        }
+      "learning_objectives": [
+        "Understand deep learning architectures and algorithms",
+        "Implement neural network models using PyTorch",
+        "Explore advanced machine learning concepts and techniques"
+      ],
+      "prerequisites": [
+        "Solid understanding of Python, programming, and data structures",
+        "Familiarity with Next.js, React.js, Node.js for web development"
+      ],
+      "sample_courses": [
+        "Deep Learning Specialization on Coursera",
+        "Neural Networks and Deep Learning on Udemy",
+        "Advanced Machine Learning on edX"
+      ]
+    },
+    {
+      "title": "AI Researcher",
+      "overview": "Roadmap for becoming an AI Researcher with a focus on AI, Machine Learning, and Deep Learning technologies",
+      "duration": "6-12 months",
+      "topics": [
+        "Deep Learning Fundamentals",
+        "Neural Networks and PyTorch",
+        "Advanced Machine Learning Techniques"
+      ],
+      "learning_objectives": [
+        "Understand deep learning architectures and algorithms",
+        "Implement neural network models using PyTorch",
+        "Explore advanced machine learning concepts and techniques"
+      ],
+      "prerequisites": [
+        "Solid understanding of Python, programming, and data structures",
+        "Familiarity with Next.js, React.js, Node.js for web development"
+      ],
+      "sample_courses": [
+        "Deep Learning Specialization on Coursera",
+        "Neural Networks and Deep Learning on Udemy",
+        "Advanced Machine Learning on edX"
+      ]
+    },
+    {
+      "title": "AI Researcher",
+      "overview": "Roadmap for becoming an AI Researcher with a focus on AI, Machine Learning, and Deep Learning technologies",
+      "duration": "6-12 months",
+      "topics": [
+        "Deep Learning Fundamentals",
+        "Neural Networks and PyTorch",
+        "Advanced Machine Learning Techniques"
+      ],
+      "learning_objectives": [
+        "Understand deep learning architectures and algorithms",
+        "Implement neural network models using PyTorch",
+        "Explore advanced machine learning concepts and techniques"
+      ],
+      "prerequisites": [
+        "Solid understanding of Python, programming, and data structures",
+        "Familiarity with Next.js, React.js, Node.js for web development"
+      ],
+      "sample_courses": [
+        "Deep Learning Specialization on Coursera",
+        "Neural Networks and Deep Learning on Udemy",
+        "Advanced Machine Learning on edX"
       ]
     }
-  ], 
-  "roadmap_suggestions" : [
-    {
-      "title": "AI Researcher",
-      "overview": "Roadmap for becoming an AI Researcher with a focus on AI, Machine Learning, and Deep Learning technologies",
-      "duration": "6-12 months",
-      "topics": [
-        "Deep Learning Fundamentals",
-        "Neural Networks and PyTorch",
-        "Advanced Machine Learning Techniques"
-      ],
-      "learning_objectives": [
-        "Understand deep learning architectures and algorithms",
-        "Implement neural network models using PyTorch", 
-        "Explore advanced machine learning concepts and techniques"
-      ],
-      "prerequisites": [
-        "Solid understanding of Python, programming, and data structures",
-        "Familiarity with Next.js, React.js, Node.js for web development"
-      ],
-      "sample_courses": [
-        "Deep Learning Specialization on Coursera",
-        "Neural Networks and Deep Learning on Udemy",
-        "Advanced Machine Learning on edX"
-      ]
-    },
-    {
-      "title": "AI Researcher",
-      "overview": "Roadmap for becoming an AI Researcher with a focus on AI, Machine Learning, and Deep Learning technologies",
-      "duration": "6-12 months",
-      "topics": [
-        "Deep Learning Fundamentals",
-        "Neural Networks and PyTorch",
-        "Advanced Machine Learning Techniques"
-      ],
-      "learning_objectives": [
-        "Understand deep learning architectures and algorithms",
-        "Implement neural network models using PyTorch", 
-        "Explore advanced machine learning concepts and techniques"
-      ],
-      "prerequisites": [
-        "Solid understanding of Python, programming, and data structures",
-        "Familiarity with Next.js, React.js, Node.js for web development"
-      ],
-      "sample_courses": [
-        "Deep Learning Specialization on Coursera",
-        "Neural Networks and Deep Learning on Udemy",
-        "Advanced Machine Learning on edX"
-      ]
-    }, 
-    {
-      "title": "AI Researcher",
-      "overview": "Roadmap for becoming an AI Researcher with a focus on AI, Machine Learning, and Deep Learning technologies",
-      "duration": "6-12 months",
-      "topics": [
-        "Deep Learning Fundamentals",
-        "Neural Networks and PyTorch",
-        "Advanced Machine Learning Techniques"
-      ],
-      "learning_objectives": [
-        "Understand deep learning architectures and algorithms",
-        "Implement neural network models using PyTorch", 
-        "Explore advanced machine learning concepts and techniques"
-      ],
-      "prerequisites": [
-        "Solid understanding of Python, programming, and data structures",
-        "Familiarity with Next.js, React.js, Node.js for web development"
-      ],
-      "sample_courses": [
-        "Deep Learning Specialization on Coursera",
-        "Neural Networks and Deep Learning on Udemy",
-        "Advanced Machine Learning on edX"
-      ]
-    }, 
-    {
-      "title": "AI Researcher",
-      "overview": "Roadmap for becoming an AI Researcher with a focus on AI, Machine Learning, and Deep Learning technologies",
-      "duration": "6-12 months",
-      "topics": [
-        "Deep Learning Fundamentals",
-        "Neural Networks and PyTorch",
-        "Advanced Machine Learning Techniques"
-      ],
-      "learning_objectives": [
-        "Understand deep learning architectures and algorithms",
-        "Implement neural network models using PyTorch", 
-        "Explore advanced machine learning concepts and techniques"
-      ],
-      "prerequisites": [
-        "Solid understanding of Python, programming, and data structures",
-        "Familiarity with Next.js, React.js, Node.js for web development"
-      ],
-      "sample_courses": [
-        "Deep Learning Specialization on Coursera",
-        "Neural Networks and Deep Learning on Udemy",
-        "Advanced Machine Learning on edX"
-      ]
-    } 
   ]
 }

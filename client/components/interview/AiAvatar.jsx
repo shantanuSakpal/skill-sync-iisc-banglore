@@ -50,10 +50,10 @@ export default function AiAvatar() {
           Your browser does not support the video tag.
         </video>
       </div>
-      {/* <div className="button-container">
+      <div className="button-container">
         <button onClick={handleStart}>Start</button>
         <button onClick={handleNext}>Next</button>
-      </div> */}
+      </div>
       <style jsx>{`
         .circular-video-container {
           width: 500px;

@@ -4,9 +4,52 @@ import React from "react";
 import { Chrono } from "react-chrono";
 import { FaCheckCircle } from "react-icons/fa";
 import { MdAccessTimeFilled } from "react-icons/md";
-export default function MainTaskDescription({ phase }) {
+export default function MainTaskDescription({ phase, roadmap }) {
   const [selectedSubtask, setSelectedSubtask] = React.useState(null);
   const [projectsLink, setProjectsLink] = React.useState(null);
+
+  /*"roadmap": [
+    {
+      "id": "1",
+      "name": "HTML",
+      "curriculum": [
+        "Introduction to Web Development",
+        "Understanding HTML",
+        "HTML Document Structure",
+        "HTML Tags and Elements",
+        "Creating Forms in HTML"
+      ],
+      "materials": "Recommended Book: 'HTML and CSS: Design and Build Websites' by Jon Duckett",
+      "projects": "redirect to project page with filter",
+      "done": false,
+      "subtasks": [
+        {
+          "name": "Basic HTML Structure",
+          "description": "Learn the basic structure of an HTML document.",
+          "curriculum": "Introduction to Web Development",
+          "materials": "W3Schools - Basic HTML Structure",
+          "projects": "redirect to project page, search for the project",
+          "done": false
+        },
+        {
+          "name": "Important Tags",
+          "description": "Explore essential HTML tags and their usage.",
+          "curriculum": "Understanding HTML",
+          "materials": "MDN Web Docs - HTML Element Reference",
+          "projects": "redirect to project page, search for the project",
+          "done": false
+        },
+        {
+          "name": "IDs and Classes",
+          "description": "Understand how to use IDs and classes in HTML elements.",
+          "curriculum": "HTML Tags and Elements",
+          "materials": "CSS-Tricks - IDs and Classes",
+          "projects": "redirect to project page, search for the project",
+          "done": false
+        }
+      ]
+    },...
+  ]*/
 
   //"phase":{
   //   "id": "1",
@@ -58,12 +101,10 @@ export default function MainTaskDescription({ phase }) {
   // console.log("phase", phase);
   const items = phase.subtasks.map((subtask, index) => {
     return {
-      title: subtask.date,
       cardTitle: subtask.name,
-      cardSubtitle: subtask.description,
+
       startDate: new Date(),
       endDate: new Date(), // You can customize the end date based on your requirements
-      date: new Date(),
     };
   });
 
@@ -191,12 +232,22 @@ export default function MainTaskDescription({ phase }) {
           <div className="w-full text-center my-5 flex flex-row gap-5 justify-center items-center">
             <div>30% Completed</div>
             {selectedSubtask?.done ? (
-              <button className="flex flex-row gap-2 justify-center items-center rounded-lg shadow-lg border-2 border-red-300 px-2 py-1 font-semibold text-xs ">
+              <button
+                className="flex flex-row gap-2 justify-center items-center rounded-lg shadow-lg border-2 border-red-300 px-2 py-1 font-semibold text-xs "
+                onClick={() => {
+                  setSelectedSubtask({ ...selectedSubtask, done: false });
+                }}
+              >
                 Mark pending
                 <MdAccessTimeFilled className="text-lg font-normal" />
               </button>
             ) : (
-              <button className="flex flex-row gap-2 justify-center items-center rounded-lg shadow-lg bg-green-500 px-2 py-1 font-semibold text-xs hover:bg-green-600">
+              <button
+                className="flex flex-row gap-2 justify-center items-center rounded-lg shadow-lg bg-green-500 px-2 py-1 font-semibold text-xs hover:bg-green-600"
+                onClick={() => {
+                  setSelectedSubtask({ ...selectedSubtask, done: true });
+                }}
+              >
                 Mark done
                 <FaCheckCircle />
               </button>

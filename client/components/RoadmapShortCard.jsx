@@ -93,16 +93,10 @@ export default function RoadmapShortCard({ roadmap, index, userData }) {
 
         // Save the formData to the Firestore database
         console.log("Document written with ID: ", docRef.id);
-        const user_id = user.uid;
-        // Update the user's roadmap_id where user.uid = user_id
-        const userRef = doc(db, "users", user_id);
-        updateDoc(userRef, {
-          roadmap_id: randomNum,
-        });
       });
 
     //redirect to career compass page
-    // router.push("/career-compass");
+    router.push("/career-compass");
   };
 
   return (

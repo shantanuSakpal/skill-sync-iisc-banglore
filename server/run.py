@@ -39,7 +39,7 @@ def parse_resume():
         f.write(r.content)
 
     # Call the resume_parser function
-    dictionary_with_extracted_parameters = jd_parser(filename)
+    dictionary_with_extracted_parameters = resume_parser(filename)
 
     # # Delete the file from the utils directory
     os.remove(os.path.join(os.path.abspath("./utils"), filename))

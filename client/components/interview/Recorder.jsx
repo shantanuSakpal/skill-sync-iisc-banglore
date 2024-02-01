@@ -7,18 +7,22 @@ import React, { useState } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-
+import { useRouter } from "next/navigation";
 export default function Recorder({
   handleNextQuestion,
 
-  setTranscript,
   setVideoUrl,
 }) {
   const [isAudioRecording, setIsAudioRecording] = useState(false);
   const [isVideoRecording, setIsVideoRecording] = useState(false);
-  const { transcript, listening, browserSupportsSpeechRecognition } =
-    useSpeechRecognition();
-
+  const [answerTranscript, setAnswerTranscript] = useState("");
+  const {
+    transcript,
+    listening,
+    browserSupportsSpeechRecognition,
+    resetTranscript,
+  } = useSpeechRecognition();
+  const router = useRouter();
   const startListening = () =>
     SpeechRecognition.startListening({
       language: "en-IN",
@@ -54,10 +58,11 @@ export default function Recorder({
       stopListening();
       setIsAudioRecording(false);
       setIsVideoRecording(false);
-
+      setAnswerTranscript("");
       // Pass transcript and video URL to the parent component
-      setTranscript(transcript);
       setVideoUrl(videoMediaBlobUrl);
+      //reset the transcript
+      resetTranscript();
 
       handleNextQuestion(transcript, videoMediaBlobUrl);
     }
@@ -99,6 +104,7 @@ export default function Recorder({
           setIsVideoRecording(false);
           sendMediaToFirebase(audioMediaBlobUrl);
           sendMediaToFirebase(videoMediaBlobUrl);
+          router.push("/interview-ace/submission");
         }}
       >
         <p>Stop Interview</p>

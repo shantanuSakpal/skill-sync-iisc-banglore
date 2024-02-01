@@ -24,6 +24,7 @@ export default function SignUp() {
   const [isFileSelected, setIsFileSelected] = useState(false);
   const [loading, setLoading] = useState(false);
   const [roadmaps, setRoadmaps] = useState([]);
+  const [userFirebaseId, setUserFirebaseId] = useState(null);
   const [formData, setFormData] = useState({
     uid: "",
     name: "",
@@ -323,7 +324,7 @@ export default function SignUp() {
     // save the formData to the firestore database
     const docRef = await addDoc(collection(db, "user_bio"), formData);
     console.log("Document written with ID: ", docRef.id);
-
+    setUserFirebaseId(docRef.id);
     const response = await getRoadmaps(
       formData.skills,
       formData.jobTypes,
@@ -723,7 +724,7 @@ export default function SignUp() {
                           <input
                             id={skill}
                             type="checkbox"
-                            checked={formData.skills.includes(skill)}
+                            checked={formData.skills?.includes(skill)}
                             className="form-checkbox mr-3 text-blue-700"
                             value={skill}
                             onChange={() => handleCheckboxChange(skill)}
@@ -871,7 +872,7 @@ export default function SignUp() {
                   Choose from these roadmaps{" "}
                 </div>
                 {roadmaps?.map((roadmap, index) => (
-                  <RoadmapShortCard key={index} roadmap={roadmap} />
+                  <RoadmapShortCard key={index} roadmap={roadmap} user />
                 ))}
               </div>
             </div>
