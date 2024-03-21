@@ -105,63 +105,64 @@ export default function SignUp() {
       setUploadProgress(0);
       setIsFileSelected(true);
 
-      const storageRef = ref(storage, `${field}/${file.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, file);
+      // const storageRef = ref(storage, `${field}/${file.name}`);
+      // const uploadTask = uploadBytesResumable(storageRef, file);
 
-      uploadTask.on("state_changed", (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setUploadProgress(progress);
-      });
+      // uploadTask.on("state_changed", (snapshot) => {
+      //   const progress =
+      //     (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      //   setUploadProgress(progress);
+      // });
 
-      try {
-        await uploadTask;
+      // try {
+      //   await uploadTask;
 
-        // Get the download URL
-        const downloadURL = await getDownloadURL(storageRef);
-        // Update the form data with the download URL
-        console.log("downloadURL", downloadURL);
-        setFormData((prevData) => ({
-          ...prevData,
-          [field]: downloadURL,
-        }));
+      //   // Get the download URL
+      //   const downloadURL = await getDownloadURL(storageRef);
+      //   // Update the form data with the download URL
+      //   console.log("downloadURL", downloadURL);
+      //   setFormData((prevData) => ({
+      //     ...prevData,
+      //     [field]: downloadURL,
+      //   }));
 
-        if (field === "resumePdf") {
-          fetch("http://127.0.0.1:5000/parse_resume", {
-            method: "POST",
-            body: JSON.stringify({ url: downloadURL }),
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-            },
-          })
-            .then((res) => res.json())
-            .then((json) => {
-              // addDoc(collection(db, "user_bio"), json[0])
-              // .then((docRef) => {
-              //   console.log("Document written with ID: ", docRef.id);
-              // })
-              // store json into localStorage
-              // localStorage.setItem("user_bio", json[0]);
-              console.log("user_bio", json[0]);
-              setFormData((prevData) => {
-                // the "skills" attribute (which is an array) in the formData should be set to the "skills" attribute from the json[0]
-                return {
-                  ...prevData,
-                  // industries: json[0].industryCategories,
-                  // jobTypes: json[0].jobs,
-                  skills: json[0].skills,
-                };
-              });
-              handleNext();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      } catch (error) {
-        console.error(`Error uploading ${field}:`, error);
-      }
+      //   if (field === "resumePdf") {
+      //     fetch("http://127.0.0.1:5000/parse_resume", {
+      //       method: "POST",
+      //       body: JSON.stringify({ url: downloadURL }),
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //         "Access-Control-Allow-Origin": "*",
+      //       },
+      //     })
+      //       .then((res) => res.json())
+      //       .then((json) => {
+      //         // addDoc(collection(db, "user_bio"), json[0])
+      //         // .then((docRef) => {
+      //         //   console.log("Document written with ID: ", docRef.id);
+      //         // })
+      //         // store json into localStorage
+      //         // localStorage.setItem("user_bio", json[0]);
+      //         console.log("user_bio", json[0]);
+      //         setFormData((prevData) => {
+      //           // the "skills" attribute (which is an array) in the formData should be set to the "skills" attribute from the json[0]
+      //           return {
+      //             ...prevData,
+      //             // industries: json[0].industryCategories,
+      //             // jobTypes: json[0].jobs,
+      //             skills: json[0].skills,
+      //           };
+      //         });
+      //         handleNext();
+      //       })
+      //       .catch((err) => {
+      //         console.log(err);
+      //       });
+      //   }
+      // } catch (error) {
+      //   console.error(`Error uploading ${field}:`, error);
+      // }
+      router.push("/career-compass");
     } else {
       alert("Please select a file to upload.");
       setIsFileSelected(false);
@@ -292,11 +293,11 @@ export default function SignUp() {
       return alert("Passwords do not match.");
     }
     try {
-      const userCredential = await createUser(
-        emailRef.current.value,
-        passwordRef.current.value
-      );
-      const { uid } = userCredential.user;
+      // const userCredential = await createUser(
+      //   emailRef.current.value,
+      //   passwordRef.current.value
+      // );
+      // const { uid } = userCredential.user;
       setStep(step + 1);
       console.log(userCredential);
       setFormData((prev) => ({
@@ -313,29 +314,29 @@ export default function SignUp() {
 
   const handleFinish = async () => {
     //log the form data, the form data is being stored in formData
-    setFormData((prevData) => ({ ...prevData, uid: user.uid }));
-    console.log("formData,", formData);
-    //increase step count
-    setStep(step + 1);
-    setLoading(true);
+    // setFormData((prevData) => ({ ...prevData, uid: user.uid }));
+    // console.log("formData,", formData);
+    // //increase step count
+    // setStep(step + 1);
+    // setLoading(true);
 
-    localStorage.setItem("formData", formData);
+    // localStorage.setItem("formData", formData);
 
-    // save the formData to the firestore database
-    const docRef = await addDoc(collection(db, "user_bio"), formData);
-    console.log("Document written with ID: ", docRef.id);
-    setUserFirebaseId(docRef.id);
-    const response = await getRoadmaps(
-      formData.skills,
-      formData.jobTypes,
-      formData.industries,
-      formData.passions,
-      formData.roadmapDuration
-    );
+    // // save the formData to the firestore database
+    // const docRef = await addDoc(collection(db, "user_bio"), formData);
+    // console.log("Document written with ID: ", docRef.id);
+    // setUserFirebaseId(docRef.id);
+    // const response = await getRoadmaps(
+    //   formData.skills,
+    //   formData.jobTypes,
+    //   formData.industries,
+    //   formData.passions,
+    //   formData.roadmapDuration
+    // );
 
     // Convert the response string to an object
-    const responseObject = JSON.parse(response);
-    setRoadmaps(responseObject.roadmaps);
+    // const responseObject = JSON.parse(response);
+    // setRoadmaps(responseObject.roadmaps);
     /* roadmaps =  [
         {
             "title": "Software Engineer",
@@ -371,8 +372,11 @@ export default function SignUp() {
     ] */
     //store the response object into the localStorage
     // localStorage.setItem("roadmapOptions", responseObject);
-    console.log("roadmapOptions", responseObject.roadmaps);
+    // console.log("roadmapOptions", responseObject.roadmaps);
+
+    localStorage.setItem("user", "shantanu@gmail.com");
     setLoading(false);
+    window.location.href = "/career-compass";
   };
 
   const handleInputChange = (e) => {

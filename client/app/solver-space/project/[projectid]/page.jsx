@@ -1,37 +1,129 @@
 "use client";
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 // import projectsData from "../../../../data/projects.json";
-import CodeEditor from "../../../../components/projects/CodeEditor"
-import DragAndDropFileInput from "../../../../components/projects/DragAndDropFileInput"
+import CodeEditor from "../../../../components/projects/CodeEditor";
+import DragAndDropFileInput from "../../../../components/projects/DragAndDropFileInput";
 
 function MyComponent() {
   const pathname = usePathname();
-  const currentRoute = pathname.split('/').pop();
+  const currentRoute = pathname.split("/").pop();
   const [currentProject, setCurrentProject] = useState(null);
-  const [projectsData, setProjectsData] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch('/api/getProjects');
-      const data = await response.json();
-      setProjectsData(data);
-    };
-
-    fetchData();
-  }, []);
+  const [projectsData, setProjectsData] = useState({
+    projects: [
+      {
+        id: "P1234",
+        title: "React Counter Component",
+        description:
+          'Complete the React component to display the text "Logged In" if the isAuth props variable is true, otherwise show the text "Guest User".',
+        difficulty: "Beginner",
+        tags: ["React", "Web Development", "Software Development"],
+        overview:
+          "Write a React component called Counter that meets the following criteria: Renders a number variable count initialized to 0. Displays the count variable value inside an <h1> tag. Increments count by 1 when clicking a button. Decrements count by 1 when clicking another button.",
+        objective:
+          "Demonstrate understanding of: Rendering dynamic data using { }, Managing state with the useState hook, Event handling to trigger state updates, Re-rendering UI on state change.",
+        boilerplate:
+          "// Boilerplate code for React Counter Component\n\nimport React, { useState } from 'react';\n\nconst Counter = ({ isAuth }) => {\n  const [count, setCount] = useState(0);\n\n  return (\n    <div>\n      <h1>{isAuth ? 'Logged In' : 'Guest User'}</h1>\n      <p>Count: {count}</p>\n      <button onClick={() => setCount(count + 1)}>Increment</button>\n      <button onClick={() => setCount(count - 1)}>Decrement</button>\n    </div>\n  );\n};\n\nexport default Counter;",
+        iscode: true,
+        time_required: 0.5,
+        solutions: ["S12345"],
+        language: "JavaScript",
+      },
+      {
+        id: "P91011",
+        title: "React Native Mobile App",
+        description:
+          "Develop a cross-platform mobile app using React Native. The app should have at least two screens and include navigation between them.",
+        difficulty: "Intermediate",
+        tags: ["React Native", "Mobile Development", "Cross-Platform"],
+        overview:
+          "Build a mobile app with React Native, utilizing components for UI and navigation. Demonstrate the ability to create cross-platform applications that work on both iOS and Android.",
+        objective:
+          "Demonstrate understanding of: React Native development, Cross-platform mobile app development, Navigation in React Native.",
+        boilerplate:
+          "// Boilerplate code for React Native Mobile App\n\n// Import necessary modules from React Native\nimport React from 'react';\nimport { NavigationContainer } from '@react-navigation/native';\nimport { createStackNavigator } from '@react-navigation/stack';\n\n// Import your custom screens\nimport Screen1 from './Screen1';\nimport Screen2 from './Screen2';\n\n// Create a stack navigator\nconst Stack = createStackNavigator();\n\n// Define your main navigation component\nconst AppNavigator = () => {\n  return (\n    <NavigationContainer>\n      <Stack.Navigator initialRouteName=\"Screen1\">\n        <Stack.Screen name=\"Screen1\" component={Screen1} />\n        <Stack.Screen name=\"Screen2\" component={Screen2} />\n      </Stack.Navigator>\n    </NavigationContainer>\n  );\n};\n\nexport default AppNavigator;",
+        iscode: true,
+        time_required: 3,
+        language: "JavaScript",
+      },
+      {
+        id: "P121314",
+        title: "Python Web Scraping",
+        description:
+          "Create a Python script to scrape data from a website. Use libraries like BeautifulSoup and requests to extract information and save it in a structured format.",
+        difficulty: "Intermediate",
+        tags: ["Python", "Web Scraping", "Data Extraction"],
+        overview:
+          "Write a Python script to extract data from a website. Utilize web scraping libraries like BeautifulSoup and requests to navigate and extract information. Save the data in a structured format.",
+        objective:
+          "Demonstrate understanding of: Python programming, Web scraping techniques, Use of libraries like BeautifulSoup and requests.",
+        boilerplate:
+          "# Boilerplate code for Python Web Scraping\n\nimport requests\nfrom bs4 import BeautifulSoup\n\n# Function to scrape data from a website\ndef scrape_website(url):\n    # Make a request to the website\n    response = requests.get(url)\n\n    # Check if the request was successful\n    if response.status_code == 200:\n        # Parse the HTML content\n        soup = BeautifulSoup(response.text, 'html.parser')\n\n        # Add your scraping logic here\n\n    else:\n        print('Failed to retrieve the webpage')\n\n# Example usage\nwebsite_url = 'https://example.com'\nscrape_website(website_url)",
+        iscode: true,
+        time_required: 2.5,
+        language: "Python",
+      },
+      {
+        id: "P151617",
+        title: "Vue.js Interactive Web App",
+        description:
+          "Build an interactive web application using Vue.js. Implement features like dynamic data rendering, user input forms, and real-time updates.",
+        difficulty: "Advanced",
+        tags: ["Vue.js", "Web Development", "Frontend"],
+        overview:
+          "Develop a web app with Vue.js, incorporating dynamic data rendering, user input forms, and real-time updates. Showcase the ability to create interactive user interfaces.",
+        objective:
+          "Demonstrate understanding of: Vue.js components, Dynamic data rendering, User input forms, Real-time updates in a frontend application.",
+        boilerplate: "",
+        iscode: true,
+        time_required: 3,
+      },
+      {
+        id: "P181920",
+        title: "Django Blog Application",
+        description:
+          "Create a blog application using Django. Implement features like user authentication, CRUD operations for blog posts, and a responsive design.",
+        difficulty: "Intermediate",
+        tags: ["Django", "Web Development", "Backend Development"],
+        overview:
+          "Build a blog application with Django, incorporating user authentication, CRUD operations for blog posts, and a responsive design. Showcase proficiency in Django web development.",
+        objective:
+          "Demonstrate understanding of: Django framework, User authentication, CRUD operations, Responsive design.",
+        boilerplate:
+          "// Boilerplate code for Django Blog Application\n\n# models.py\nfrom django.db import models\n\nclass BlogPost(models.Model):\n    title = models.CharField(max_length=255)\n    content = models.TextField()\n    # Add more fields as needed\n\n# views.py\nfrom django.shortcuts import render, get_object_or_404\nfrom .models import BlogPost\n\n# Add your views for CRUD operations\n\n# urls.py\nfrom django.urls import path\nfrom . import views\n\nurlpatterns = [\n    # Define your URL patterns\n]\n\n# settings.py\n# Add Django settings for authentication and other configurations\n",
+        iscode: true,
+        time_required: 3.5,
+        language: "Python (Django)",
+      },
+      {
+        id: "P212223",
+        title: "Machine Learning with Python",
+        description:
+          "Develop a machine learning model using Python. Choose a dataset, preprocess the data, train a model, and evaluate its performance.",
+        difficulty: "Advanced",
+        tags: ["Python", "Machine Learning", "Data Science"],
+        overview:
+          "Create a machine learning model using Python. Select a dataset, preprocess the data, choose a suitable algorithm, train the model, and evaluate its performance. Demonstrate proficiency in machine learning concepts.",
+        objective:
+          "Demonstrate understanding of: Machine learning concepts, Python for machine learning, Model training and evaluation.",
+        boilerplate: "",
+        iscode: true,
+        time_required: 4.5,
+      },
+    ],
+  });
 
   useEffect(() => {
     // Fetch the project based on the currentRoute (project ID)
-    const project = projectsData.projects.find(project => project.id === currentRoute);
-
+    const project = projectsData.projects.find(
+      (project) => project.id === currentRoute
+    );
     // Update state with the fetched project
     setCurrentProject(project);
   }, [currentRoute]);
 
   return (
     <div className="flex bg-gray-200">
-
       <div className="left w-[900px] p-4 m-4 bg-white rounded-lg">
         {currentProject ? (
           <div>
@@ -40,7 +132,6 @@ function MyComponent() {
             <h2 className="p-1 ">{currentProject.overview}</h2>
             <h2 className="text-xl font-semibold p-1">Objective</h2>
             <h2 className="p-1 ">{currentProject.objective}</h2>
-
 
             <CodeEditor currentProject={currentProject} />
 
@@ -56,53 +147,39 @@ function MyComponent() {
       {/* Right side (rest of the width) */}
       <div className="right flex-1 p-4 bg-white rounded-lg my-4 h-full">
         {currentProject ? (
+          <div className="py-4 px-1 h-full flex flex-col justify-between">
+            <div>
+              <h2 className="text-lg font-bold ">Duration: </h2>
+              <h2>{currentProject.time_required} Hours</h2>
+              <h2 className="text-lg pt-4 font-bold ">Difficulty: </h2>
+              <h2>{currentProject.difficulty}</h2>
 
+              {/* Display other project details as needed */}
+            </div>
 
+            {/* drag file here  */}
+            <div className="mt-20">
+              <DragAndDropFileInput />
+            </div>
 
-
-
-            <div className='py-4 px-1 h-full flex flex-col justify-between'>
-              <div>
-                <h2 className='text-lg font-bold '>Duration: </h2>
-                <h2>{currentProject.time_required} Hours</h2>
-                <h2 className='text-lg pt-4 font-bold '>Difficulty: </h2>
-                <h2>{currentProject.difficulty}</h2>
-
-               
-                {/* Display other project details as needed */}
-
-
-
-              </div>
-
-                {/* drag file here  */}
-              <div className='mt-20'>
-                <DragAndDropFileInput/>
-              </div>
-
-              <div className='mt-20'>
-                <div className='flex'>
-                  <div className='bg-gradient-to-r flex-grow h-fit my-auto from-purple-500 via-purple-600 to-blue-500 text-white px-4 py-2 rounded-md mr-2 text-center'>
-                    Submit
+            <div className="mt-20">
+              <div className="flex">
+                <div className="bg-gradient-to-r flex-grow h-fit my-auto from-purple-500 via-purple-600 to-blue-500 text-white px-4 py-2 rounded-md mr-2 text-center">
+                  Submit
+                </div>
+                <div className="flex-grow h-fit my-auto text-center">
+                  <div className="bg-gradient-to-r from-purple-500 via-purple-600 to-blue-500 text-white px-4 py-2 rounded-md">
+                    View Solutions
                   </div>
-                  <div className='flex-grow h-fit my-auto text-center'>
-                    <div className='bg-gradient-to-r from-purple-500 via-purple-600 to-blue-500 text-white px-4 py-2 rounded-md'>
-                      View Solutions
-                    </div>
-                  </div>
-
-
-
                 </div>
               </div>
             </div>
+          </div>
         ) : (
           <p>Project not found</p>
         )}
       </div>
     </div>
-
-
   );
 }
 

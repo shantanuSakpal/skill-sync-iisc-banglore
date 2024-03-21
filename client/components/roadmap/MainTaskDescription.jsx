@@ -264,7 +264,7 @@ export default function MainTaskDescription({ phase, roadmap }) {
           </div>
 
           <Link
-            href={`${projectsLink}`}
+            href={`/solver-space`}
             className="px-3 py-2 bg-gradient-to-r from-purple-300 to-pink-300 rounded-lg shadow-lg hover:from-purple-400 hover:to-pink-400 text-center font-semibold"
           >
             Solve real-life scenarios for this topic

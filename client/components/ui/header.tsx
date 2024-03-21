@@ -11,6 +11,7 @@ export default function Header () {
   const [loading, setLoading] = useState(true)
   const [currentUrl, setCurrentUrl] = useState<string>('')
   const { user, logOut } = UserAuth()
+  const [currUser, setCurrUser] = useState<string>('')
 
   // detect whether user has scrolled the page down by 10px
   const scrollHandler = () => {
@@ -19,7 +20,10 @@ export default function Header () {
 
   const handleLogOut = async () => {
     try {
-      await logOut()
+      // await logOut()
+      localStorage.removeItem('user')
+      setCurrUser('')
+      
     } catch (error) {
       console.log(error)
     }
@@ -33,6 +37,11 @@ export default function Header () {
     checkAuthentication();
     scrollHandler()
     window.addEventListener('scroll', scrollHandler)
+    //get user from local storage
+   let cuser = localStorage.getItem('user')
+    if(cuser){
+      setCurrUser(cuser)}
+    
     return () => window.removeEventListener('scroll', scrollHandler)
   }, [top, currentUrl, user])
 
@@ -52,7 +61,7 @@ export default function Header () {
           {/* Desktop navigation */}
           <nav className='hidden md:flex md:grow'>
             {/* Desktop sign in links */}
-            {loading ? null : user ? (
+            {currUser  ? (
               <>
                 <ul className='flex grow justify-end flex-wrap items-center'>
                   <li>
